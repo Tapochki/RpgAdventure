@@ -92,6 +92,11 @@ namespace TandC.RpgAdventure.HexGrid
             return tileAbove != null && DetermineTileType(tileAbove) == TileType.Mountain;
         }
 
+        private bool CanHighlightTile(TileModel tile)
+        {
+            return tile.Type != TileType.Water && tile.Type != TileType.Mountain;
+        }
+
         public List<TileModel> GetSurroundingTiles()
         {
             Vector3Int[] directions = new Vector3Int[]
@@ -115,14 +120,19 @@ namespace TandC.RpgAdventure.HexGrid
             }
 
             var surroundingTiles = new List<TileModel>();
+            var tilePositionSet = new HashSet<Vector3Int>(Tiles.Select(t => t.Position));
 
             foreach (var direction in directions)
             {
                 var neighborPosition = _currentCentralTile.Position + direction;
-                var tile = Tiles.Find(t => t.Position == neighborPosition);
-                if (tile != null)
+
+                if (tilePositionSet.Contains(neighborPosition))
                 {
-                    surroundingTiles.Add(tile);
+                    var tile = Tiles.Find(t => t.Position == neighborPosition);
+                    if (tile != null && CanHighlightTile(tile))
+                    {
+                        surroundingTiles.Add(tile);
+                    }
                 }
             }
 
