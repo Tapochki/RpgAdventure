@@ -15,30 +15,38 @@ namespace TandC.RpgAdventure.HexGrid
         [SerializeField] private ClickDetector2D _clickDetector;
         [SerializeField] private Vector3 _step;
 
-        private TilemapViewModel viewModel;
-        private List<GameObject> placeholders = new List<GameObject>();
-        private PlayerSpawner playerSpawner;
+        private TilemapViewModel _viewModel;
+        private List<GameObject> _placeholders = new List<GameObject>();
+        private PlayerSpawner _playerSpawner;
 
         private void Start()
         {
-            viewModel = new TilemapViewModel(_tilemap);
-            playerSpawner = new PlayerSpawner(viewModel, _tilemap, _playerPrefab, _step);
+            _viewModel = new TilemapViewModel(_tilemap);
+            _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step);
 
             CreatePlaceholders();
-            playerSpawner.SpawnPlayer();
+            _playerSpawner.SpawnPlayer();
             UpdateTileVisibility();
             HandleClicks();
         }
 
+        public void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.V)) 
+            {
+                _playerSpawner.RespawnPlayer();
+            }
+        }
+
         private void CreatePlaceholders()
         {
-            foreach (var tile in viewModel.Tiles)
+            foreach (var tile in _viewModel.Tiles)
             {
                 var worldPosition = _tilemap.CellToWorld(tile.Position) + _step;
                 var placeholder = Instantiate(_placeholderPrefab, worldPosition, Quaternion.identity, transform);
                 placeholder.name = $"Placeholder_{tile.Type}_{tile.Position}";
                 placeholder.SetActive(false);
-                placeholders.Add(placeholder);
+                _placeholders.Add(placeholder);
             }
         }
 
@@ -53,21 +61,21 @@ namespace TandC.RpgAdventure.HexGrid
         public void HandleTileClick(Vector3 clickPosition)
         {
             var cellPosition = _tilemap.WorldToCell(clickPosition);
-            var clickedTile = viewModel.Tiles.Find(t => t.Position == cellPosition);
+            var clickedTile = _viewModel.Tiles.Find(t => t.Position == cellPosition);
 
             if (clickedTile != null &&
                 (clickedTile.Type == TileType.Land || clickedTile.Type == TileType.Sand))
             {
-                playerSpawner.MovePlayerToTile(clickedTile);
+                _playerSpawner.MovePlayerToTile(clickedTile);
                 UpdateTileVisibility();
             }
         }
 
         public void UpdateTileVisibility()
         {
-            List<TileModel> surroundingTiles = viewModel.GetSurroundingTiles();
+            List<TileModel> surroundingTiles = _viewModel.GetSurroundingTiles();
 
-            foreach (var placeholder in placeholders)
+            foreach (var placeholder in _placeholders)
             {
                 Vector3Int placeholderPosition = _tilemap.WorldToCell(placeholder.transform.position - _step);
                 bool isVisible = surroundingTiles.Exists(t => t.Position == placeholderPosition);

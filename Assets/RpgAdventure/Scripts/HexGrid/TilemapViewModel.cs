@@ -22,16 +22,31 @@ namespace TandC.RpgAdventure.HexGrid
 
         private void InitializeTiles()
         {
-            Tiles = new List<TileModel>();
+            var tilesToAdd = new List<TileModel>();
+
             foreach (var position in _tilemap.cellBounds.allPositionsWithin)
             {
+                Vector3Int tilePosition = new Vector3Int(position.x, position.y);
                 if (!_tilemap.HasTile(position)) continue;
 
                 var tileBase = _tilemap.GetTile(position);
                 TileType type = DetermineTileType(tileBase);
-                var tileModel = new TileModel(position, type);
-                Tiles.Add(tileModel);
+
+                if (type == TileType.Mountain)
+                {
+                    tilesToAdd.RemoveAll(t => t.Position == tilePosition);
+                    tilesToAdd.Add(new TileModel(tilePosition, type));
+                }
+                else
+                {
+                    if (!tilesToAdd.Any(t => t.Position == tilePosition && t.Type == TileType.Mountain))
+                    {
+                        tilesToAdd.Add(new TileModel(tilePosition, type));
+                    }
+                }
             }
+
+            Tiles = tilesToAdd;
         }
 
         private TileType DetermineTileType(TileBase tile)

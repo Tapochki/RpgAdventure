@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 namespace TandC.RpgAdventure.HexGrid 
 {
-    public class PlayerSpawner : MonoBehaviour
+    public class PlayerSpawner
     {
         private readonly TilemapViewModel _viewModel;
         private readonly Tilemap _tilemap;
@@ -18,6 +18,12 @@ namespace TandC.RpgAdventure.HexGrid
             _tilemap = tilemap;
             _playerPrefab = playerPrefab;
             _step = step;
+        }
+
+        public void RespawnPlayer() 
+        {
+            Object.Destroy(Player);
+            SpawnPlayer();
         }
 
         public void SpawnPlayer()

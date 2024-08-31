@@ -304,10 +304,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd5bfb903d9e99b40bb6b7d5cb27981d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 1201509709}
-  placeholderPrefab: {fileID: 3376217348579541328, guid: 86f374617d71e7a4ab2635ecb1237d5f, type: 3}
-  playerPrefab: {fileID: 6700901524588227694, guid: 9f1db0eeb13e6fb43ab4e41284350c7a, type: 3}
-  clickDetector: {fileID: 526016002}
+  _tilemap: {fileID: 1201509709}
+  _placeholderPrefab: {fileID: 3376217348579541328, guid: 86f374617d71e7a4ab2635ecb1237d5f, type: 3}
+  _playerPrefab: {fileID: 6700901524588227694, guid: 9f1db0eeb13e6fb43ab4e41284350c7a, type: 3}
+  _clickDetector: {fileID: 526016002}
   _step: {x: 0, y: 0.15, z: 0}
 --- !u!1001 &1985041019
 PrefabInstance:
