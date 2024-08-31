@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TandC.RpgAdventure.Settings;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -8,32 +9,29 @@ namespace TandC.RpgAdventure.HexGrid
 {
     public class TilemapViewModel
     {
-        public IReadOnlyDictionary<Vector3Int, TileModel> Tiles { get; private set; }
+        public List<TileModel> Tiles { get; private set; }
 
         private TileModel _currentCentralTile;
-        private Tilemap tilemap;
+        private Tilemap _tilemap;
 
         public TilemapViewModel(Tilemap tilemap)
         {
-            this.tilemap = tilemap;
+            _tilemap = tilemap;
             InitializeTiles();
         }
 
         private void InitializeTiles()
         {
-            var tilesDictionary = new Dictionary<Vector3Int, TileModel>();
-
-            foreach (var position in tilemap.cellBounds.allPositionsWithin)
+            Tiles = new List<TileModel>();
+            foreach (var position in _tilemap.cellBounds.allPositionsWithin)
             {
-                if (!tilemap.HasTile(position)) continue;
+                if (!_tilemap.HasTile(position)) continue;
 
-                var tileBase = tilemap.GetTile(position);
+                var tileBase = _tilemap.GetTile(position);
                 TileType type = DetermineTileType(tileBase);
                 var tileModel = new TileModel(position, type);
-                tilesDictionary.Add(position, tileModel);
+                Tiles.Add(tileModel);
             }
-
-            Tiles = tilesDictionary;
         }
 
         private TileType DetermineTileType(TileBase tile)
@@ -57,10 +55,10 @@ namespace TandC.RpgAdventure.HexGrid
 
         private TileModel GetRandomSpawnableTile()
         {
-            var spawnableTiles = Tiles.Values
-                .Where(t => t.Type == TileType.Land || t.Type == TileType.Sand)
-                .Where(t => !HasMountainTileAbove(t.Position))
-                .ToList();
+            var spawnableTiles = Tiles
+                           .Where(t => t.Type == TileType.Land || t.Type == TileType.Sand)
+                           .Where(t => !HasMountainTileAbove(t.Position))
+                           .ToList();
 
             if (spawnableTiles.Count == 0)
             {
@@ -73,7 +71,7 @@ namespace TandC.RpgAdventure.HexGrid
 
         private bool HasMountainTileAbove(Vector3Int position)
         {
-            var tileAbove = tilemap.GetTile(position);
+            var tileAbove = _tilemap.GetTile(position);
             return tileAbove != null && DetermineTileType(tileAbove) == TileType.Mountain;
         }
 
@@ -81,12 +79,12 @@ namespace TandC.RpgAdventure.HexGrid
         {
             Vector3Int[] directions = new Vector3Int[]
             {
-            new Vector3Int(1, 0, 0),   // Top
-            new Vector3Int(-1, 0, 0),  // Bottom
-            new Vector3Int(0, -1, 0),  // Top-Left (even Y), Bottom-Left (odd Y)
-            new Vector3Int(0, 1, 0),   // Top-Right (even Y), Bottom-Right (odd Y)
-            new Vector3Int(-1, -1, 0), // Bottom-Right (even Y)
-            new Vector3Int(-1, 1, 0)   // Bottom-Left (even Y)
+                new Vector3Int(1, 0, 0),   // Top
+                new Vector3Int(-1, 0, 0),  // Bottom
+                new Vector3Int(0, -1, 0),  // Top-Left (even Y), Bottom-Left (odd Y)
+                new Vector3Int(0, 1, 0),   // Top-Right (even Y), Bottom-Right (odd Y)
+                new Vector3Int(-1, -1, 0), // Bottom-Right (even Y)
+                new Vector3Int(-1, 1, 0)   // Bottom-Left (even Y)
             };
 
             bool isEvenRow = _currentCentralTile.Position.y % 2 == 0;
@@ -104,7 +102,8 @@ namespace TandC.RpgAdventure.HexGrid
             foreach (var direction in directions)
             {
                 var neighborPosition = _currentCentralTile.Position + direction;
-                if (Tiles.TryGetValue(neighborPosition, out var tile))
+                var tile = Tiles.Find(t => t.Position == neighborPosition);
+                if (tile != null)
                 {
                     surroundingTiles.Add(tile);
                 }
@@ -115,7 +114,8 @@ namespace TandC.RpgAdventure.HexGrid
 
         public void SetCurrentCentralTile(Vector3Int position)
         {
-            if (Tiles.TryGetValue(position, out var tile))
+            var tile = Tiles.Find(t => t.Position == position);
+            if (tile != null)
             {
                 _currentCentralTile = tile;
             }

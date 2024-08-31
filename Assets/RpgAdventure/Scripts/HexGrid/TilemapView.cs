@@ -9,78 +9,67 @@ namespace TandC.RpgAdventure.HexGrid
 {
     public class TilemapView : MonoBehaviour
     {
-        [SerializeField] private Tilemap tilemap;
-        [SerializeField] private GameObject placeholderPrefab;
-        [SerializeField] private GameObject playerPrefab;
-        [SerializeField] private ClickDetector2D clickDetector;
+        [SerializeField] private Tilemap _tilemap;
+        [SerializeField] private GameObject _placeholderPrefab;
+        [SerializeField] private GameObject _playerPrefab;
+        [SerializeField] private ClickDetector2D _clickDetector;
         [SerializeField] private Vector3 _step;
 
         private TilemapViewModel viewModel;
         private List<GameObject> placeholders = new List<GameObject>();
-        private GameObject player;
+        private PlayerSpawner playerSpawner;
 
         private void Start()
         {
-            viewModel = new TilemapViewModel(tilemap);
+            viewModel = new TilemapViewModel(_tilemap);
+            playerSpawner = new PlayerSpawner(viewModel, _tilemap, _playerPrefab, _step);
+
             CreatePlaceholders();
-            SpawnPlayer();
+            playerSpawner.SpawnPlayer();
             UpdateTileVisibility();
             HandleClicks();
         }
 
         private void CreatePlaceholders()
         {
-            foreach (var tile in viewModel.Tiles.Values)
+            foreach (var tile in viewModel.Tiles)
             {
-                var worldPosition = tilemap.CellToWorld(tile.Position) + _step;
-                var placeholder = Instantiate(placeholderPrefab, worldPosition, Quaternion.identity, transform);
+                var worldPosition = _tilemap.CellToWorld(tile.Position) + _step;
+                var placeholder = Instantiate(_placeholderPrefab, worldPosition, Quaternion.identity, transform);
                 placeholder.name = $"Placeholder_{tile.Type}_{tile.Position}";
                 placeholder.SetActive(false);
                 placeholders.Add(placeholder);
             }
         }
 
-        private void SpawnPlayer()
-        {
-            var spawnTile = viewModel.GetSpawnPlayerTile();
-            if (spawnTile == null) return;
-
-            var worldPosition = tilemap.CellToWorld(spawnTile.Position) + _step;
-            player = Instantiate(playerPrefab, worldPosition, Quaternion.identity);
-        }
-
         private void HandleClicks()
         {
-            clickDetector.OnObjectClicked
-                .Select(clickedObject => tilemap.WorldToCell(clickedObject.transform.position - _step))
-                .Subscribe(OnTileClicked)
+            _clickDetector.OnObjectClicked
+                .Select(clickedObject => clickedObject.transform.position)
+                .Subscribe(clickPosition => HandleTileClick(clickPosition))
                 .AddTo(this);
         }
 
-        private void OnTileClicked(Vector3Int cellPosition)
+        public void HandleTileClick(Vector3 clickPosition)
         {
-            if (viewModel.Tiles.TryGetValue(cellPosition, out var clickedTile) &&
+            var cellPosition = _tilemap.WorldToCell(clickPosition);
+            var clickedTile = viewModel.Tiles.Find(t => t.Position == cellPosition);
+
+            if (clickedTile != null &&
                 (clickedTile.Type == TileType.Land || clickedTile.Type == TileType.Sand))
             {
-                MovePlayerToTile(clickedTile);
+                playerSpawner.MovePlayerToTile(clickedTile);
                 UpdateTileVisibility();
             }
         }
 
-        private void MovePlayerToTile(TileModel tile)
-        {
-            var worldPosition = tilemap.CellToWorld(tile.Position) + _step;
-            player.transform.position = worldPosition;
-            viewModel.SetCurrentCentralTile(tile.Position);
-        }
-
-        private void UpdateTileVisibility()
+        public void UpdateTileVisibility()
         {
             List<TileModel> surroundingTiles = viewModel.GetSurroundingTiles();
 
             foreach (var placeholder in placeholders)
             {
-                Vector3Int placeholderPosition = tilemap.WorldToCell(placeholder.transform.position - _step);
+                Vector3Int placeholderPosition = _tilemap.WorldToCell(placeholder.transform.position - _step);
                 bool isVisible = surroundingTiles.Exists(t => t.Position == placeholderPosition);
 
                 SetPlaceholderVisible(placeholder, isVisible);
