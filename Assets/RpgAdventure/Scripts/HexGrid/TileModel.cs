@@ -10,7 +10,7 @@ namespace TandC.RpgAdventure.HexGrid
 
         public TileModel(Vector3Int position, TileType type)
         {
-            Position = new Vector3Int(position.x, position.y);
+            Position = position;
             Type = type;
         }
     }

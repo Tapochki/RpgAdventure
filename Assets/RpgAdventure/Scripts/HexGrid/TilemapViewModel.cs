@@ -30,7 +30,7 @@ namespace TandC.RpgAdventure.HexGrid
                 Vector3Int tilePosition = new Vector3Int(position.x, position.y);
                 var tileBase = _tilemap.GetTile(position);
                 TileType type = DetermineTileType(tileBase);
-                var tileModel = new TileModel(position, type);
+                var tileModel = new TileModel(tilePosition, type);
 
                 var existingTile = tilesToAdd.FirstOrDefault(t => t.Position == tilePosition);
 
@@ -74,7 +74,6 @@ namespace TandC.RpgAdventure.HexGrid
         {
             var spawnableTiles = Tiles
                            .Where(t => t.Type == TileType.Land || t.Type == TileType.Sand)
-                           .Where(t => !HasMountainTileAbove(t.Position))
                            .ToList();
 
             if (spawnableTiles.Count == 0)
@@ -86,10 +85,9 @@ namespace TandC.RpgAdventure.HexGrid
             return spawnableTiles[Random.Range(0, spawnableTiles.Count)];
         }
 
-        private bool HasMountainTileAbove(Vector3Int position)
+        public TileModel GetTileAtPosition(Vector3Int position)
         {
-            var tileAbove = _tilemap.GetTile(position);
-            return tileAbove != null && DetermineTileType(tileAbove) == TileType.Mountain;
+            return Tiles.FirstOrDefault(t => t.Position == position);
         }
 
         private bool CanHighlightTile(TileModel tile)
@@ -128,7 +126,7 @@ namespace TandC.RpgAdventure.HexGrid
 
                 if (tilePositionSet.Contains(neighborPosition))
                 {
-                    var tile = Tiles.Find(t => t.Position == neighborPosition);
+                    var tile = GetTileAtPosition(neighborPosition);
                     if (tile != null && CanHighlightTile(tile))
                     {
                         surroundingTiles.Add(tile);
@@ -141,7 +139,7 @@ namespace TandC.RpgAdventure.HexGrid
 
         public void SetCurrentCentralTile(Vector3Int position)
         {
-            var tile = Tiles.Find(t => t.Position == position);
+            var tile = GetTileAtPosition(position);
             if (tile != null)
             {
                 _currentCentralTile = tile;

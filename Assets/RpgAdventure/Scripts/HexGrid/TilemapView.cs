@@ -32,7 +32,7 @@ namespace TandC.RpgAdventure.HexGrid
             HandleClicks();
         }
 
-        public void Update()
+        private void Update()
         {
             if(Input.GetKeyDown(KeyCode.V)) 
             {
@@ -63,7 +63,7 @@ namespace TandC.RpgAdventure.HexGrid
         public void HandleTileClick(Vector3 clickPosition)
         {
             var cellPosition = _tilemap.WorldToCell(clickPosition);
-            var clickedTile = _viewModel.Tiles.Find(t => t.Position == cellPosition);
+            var clickedTile = _viewModel.GetTileAtPosition(cellPosition);
 
             if (clickedTile != null &&
                 (clickedTile.Type == TileType.Land || clickedTile.Type == TileType.Sand))
