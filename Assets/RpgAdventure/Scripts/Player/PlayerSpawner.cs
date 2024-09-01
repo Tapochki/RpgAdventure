@@ -20,6 +20,7 @@ namespace TandC.RpgAdventure.HexGrid
             _playerPrefab = playerPrefab;
             _step = step;
             _fogOfWar = fogOfWar;
+            _fogOfWar.InitializeFog();
         }
 
         public void RespawnPlayer() 
