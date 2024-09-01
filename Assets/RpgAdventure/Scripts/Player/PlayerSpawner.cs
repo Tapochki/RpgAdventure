@@ -9,15 +9,17 @@ namespace TandC.RpgAdventure.HexGrid
         private readonly Tilemap _tilemap;
         private readonly GameObject _playerPrefab;
         private readonly Vector3 _step;
+        private readonly FogOfWar _fogOfWar;
 
         public GameObject Player { get; private set; }
 
-        public PlayerSpawner(TilemapViewModel viewModel, Tilemap tilemap, GameObject playerPrefab, Vector3 step)
+        public PlayerSpawner(TilemapViewModel viewModel, Tilemap tilemap, GameObject playerPrefab, Vector3 step, FogOfWar fogOfWar)
         {
             _viewModel = viewModel;
             _tilemap = tilemap;
             _playerPrefab = playerPrefab;
             _step = step;
+            _fogOfWar = fogOfWar;
         }
 
         public void RespawnPlayer() 
@@ -33,6 +35,8 @@ namespace TandC.RpgAdventure.HexGrid
 
             var worldPosition = _tilemap.CellToWorld(spawnTile.Position) + _step;
             Player = Object.Instantiate(_playerPrefab, worldPosition, Quaternion.identity);
+
+            _fogOfWar.UpdateFog(spawnTile.Position);
         }
 
         public void MovePlayerToTile(TileModel tile)
@@ -40,6 +44,7 @@ namespace TandC.RpgAdventure.HexGrid
             var worldPosition = _tilemap.CellToWorld(tile.Position) + _step;
             Player.transform.position = worldPosition;
             _viewModel.SetCurrentCentralTile(tile.Position);
+            _fogOfWar.UpdateFog(tile.Position);
         }
     }
 }

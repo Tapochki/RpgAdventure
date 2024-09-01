@@ -15,6 +15,8 @@ namespace TandC.RpgAdventure.HexGrid
         [SerializeField] private ClickDetector2D _clickDetector;
         [SerializeField] private Vector3 _step;
 
+        [SerializeField] private FogOfWar _fogOfWar;
+
         private TilemapViewModel _viewModel;
         private List<GameObject> _placeholders = new List<GameObject>();
         private PlayerSpawner _playerSpawner;
@@ -22,7 +24,7 @@ namespace TandC.RpgAdventure.HexGrid
         private void Start()
         {
             _viewModel = new TilemapViewModel(_tilemap);
-            _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step);
+            _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
 
             CreatePlaceholders();
             _playerSpawner.SpawnPlayer();
