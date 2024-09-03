@@ -6,7 +6,7 @@ namespace TandC.RpgAdventure.HexGrid
     public class FogOfWar : MonoBehaviour
     {
         [SerializeField] private Tilemap _fogTilemap;
-        [SerializeField] private TileBase _fogTile;
+        [SerializeField] private AnimatedTile _fogTile;
 
         [SerializeField] private Tilemap _tilemap;
         [SerializeField] private TilemapViewModel _viewModel;
@@ -31,7 +31,7 @@ namespace TandC.RpgAdventure.HexGrid
             Debug.LogError(playerPosition);
             for (int i = -_fogStep; i <= _fogStep; i++)
             {
-                for(int j = -_fogStep; j <= _fogStep; j++) 
+                for (int j = -_fogStep; j <= _fogStep; j++)
                 {
                     _fogTilemap.SetTile(playerPosition + new Vector3Int(i, j), null);
                 }

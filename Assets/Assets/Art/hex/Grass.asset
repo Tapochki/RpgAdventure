@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Mountain
+  m_Name: Grass
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 5693747035221008449, guid: 80a40cab78e58ed499de94f7c96e34a0, type: 3}
+  m_Sprite: {fileID: -1295632991, guid: 493e060d1e35a4d41aab5b59fa1e1d1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

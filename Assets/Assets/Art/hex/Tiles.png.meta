@@ -1,0 +1,459 @@
+fileFormatVersion: 2
+guid: 493e060d1e35a4d41aab5b59fa1e1d1d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3171588336329814028
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_0"
+  - first:
+      213: 144263236431681943
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_1"
+  - first:
+      213: 2093258525412389762
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_2"
+  - first:
+      213: -5734615745585125968
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_3"
+  - first:
+      213: 7359224233650703904
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_4"
+  - first:
+      213: -3047947035022189681
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_5"
+  - first:
+      213: 2640046935823879311
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_6"
+  - first:
+      213: 8589316649049084638
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_7"
+  - first:
+      213: -3335166276288274669
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_8"
+  - first:
+      213: -3926577851321293721
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_9"
+  - first:
+      213: -6502006395017574138
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_10"
+  - first:
+      213: -5851121560892369381
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_11"
+  - first:
+      213: 2326648461131475347
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_12"
+  - first:
+      213: 4094177483103902253
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_13"
+  - first:
+      213: -5094967996788778636
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_14"
+  - first:
+      213: 7522648014461573103
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_15"
+  - first:
+      213: -112355789871875464
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_16"
+  - first:
+      213: -3063493644826999717
+    second: "\u0420\u0435\u0441\u0443\u0440\u0441 36_17"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 512
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Grass
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 1251
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be219af050368f74996eddc9e99a34a7
+      internalID: -1295632991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 1251
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f98119ae7fc9b1e418d0b5bd39cdefe9
+      internalID: -1236356222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sand
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 1251
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 308224e3bbb8fad41a4f4a19a1768cfa
+      internalID: 130179315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Snow
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 1251
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad0ba29cfab949e42b5396baaeae20ed
+      internalID: 1227716293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DarkGrass
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 1251
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dae1ca0d3e929ba4dbd2ec3b1d9755aa
+      internalID: 943498946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Question
+      rect:
+        serializedVersion: 2
+        x: 2616
+        y: 1251
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4b52fb5462d4a04ea368d7217cc235b
+      internalID: 1093362565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: iForget
+      rect:
+        serializedVersion: 2
+        x: 3132
+        y: 1251
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb530d86f8fe2624c8fdb281754fb28b
+      internalID: -459105544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rock
+      rect:
+        serializedVersion: 2
+        x: 3648
+        y: 1251
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 789b57bd980c32f468c6238edb1ebc73
+      internalID: 1978254977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: House
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 227
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1816909de0ff2564fa367cbc0faa843f
+      internalID: 2044315544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Castle
+      rect:
+        serializedVersion: 2
+        x: 552
+        y: 227
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0c821ce11495e84087a6218a0867d7b
+      internalID: -863905422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: House_2
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 227
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 315163a6472eb43459ee94cc0a7f5536
+      internalID: 894235690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cave
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 227
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bab15c0be9636b4d86789c094172d27
+      internalID: 1163233598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Forest
+      rect:
+        serializedVersion: 2
+        x: 2100
+        y: 227
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e67514ffeb910d44185cfbf0c1866d78
+      internalID: 190254953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 839797282a1fe6045b5382734788ec6c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Castle: -863905422
+      Cave: 1163233598
+      DarkGrass: 943498946
+      Forest: 190254953
+      Grass: -1295632991
+      House: 2044315544
+      House_2: 894235690
+      Question: 1093362565
+      Rock: 1978254977
+      Sand: 130179315
+      Snow: 1227716293
+      Tiles_10: 1383883007
+      Tiles_11: -1680799059
+      Tiles_12: 2097200744
+      Tiles_8: 1764295796
+      Tiles_9: 750866498
+      Water: -1236356222
+      iForget: -459105544
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

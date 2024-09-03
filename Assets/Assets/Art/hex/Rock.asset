@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: EventWithTile
+  m_Name: Rock
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -1726659277, guid: f51d32fd2738a1b438f1b3e08d8a21a4, type: 3}
+  m_Sprite: {fileID: 1978254977, guid: 493e060d1e35a4d41aab5b59fa1e1d1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
