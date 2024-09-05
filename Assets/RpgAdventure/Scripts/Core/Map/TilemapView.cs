@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using TandC.RpgAdventure.Config;
 using TandC.RpgAdventure.Core.Player;
 using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Settings;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using VContainer;
 
 namespace TandC.RpgAdventure.Core.HexGrid
 {
@@ -13,20 +15,41 @@ namespace TandC.RpgAdventure.Core.HexGrid
         [SerializeField] private Tilemap _tilemap;
         [SerializeField] private GameObject _placeholderPrefab;
         [SerializeField] private GameObject _playerPrefab;
-        [SerializeField] private ClickDetector2D _clickDetector;
+
         [SerializeField] private Vector3 _step;
 
         [SerializeField] private FogOfWar _fogOfWar;
+        [SerializeField] private Tilemap _structureTilemap;
+        [SerializeField] private StructureConfig _structureConfig;
 
-        private TilemapViewModel _viewModel;
+        [Inject] private TilemapViewModel _viewModel;
+        [Inject] private ClickDetector2D _clickDetector;
+
         private List<GameObject> _placeholders = new List<GameObject>();
         private PlayerSpawner _playerSpawner;
 
-        private void Start()
+        public void Start()
         {
-            _viewModel = new TilemapViewModel(_tilemap);
-            _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
+            if (AppConstants.DEBUG_ENABLE) 
+            {
+                _clickDetector = GameObject.Find("ClickDetector").GetComponent<ClickDetector2D>();
+                _viewModel = new TilemapViewModel(_tilemap);
+                _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
 
+                var structureSpawner = new StructureSpawner(_viewModel, _structureConfig);
+                structureSpawner.SpawnStructures();
+
+                CreatePlaceholders();
+                _playerSpawner.SpawnPlayer();
+                UpdateTileVisibility();
+                HandleClicks();
+            }
+        }
+
+        public void Initialize()
+        {
+          //  _viewModel = new TilemapViewModel(_tilemap);
+            _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
             CreatePlaceholders();
             _playerSpawner.SpawnPlayer();
             UpdateTileVisibility();
@@ -50,6 +73,12 @@ namespace TandC.RpgAdventure.Core.HexGrid
                 placeholder.name = $"Placeholder_{tile.Type}_{tile.Position}";
                 placeholder.SetActive(false);
                 _placeholders.Add(placeholder);
+
+                Tile structureTile = _structureConfig.GetStructureTile(tile.StructureTileType);
+                if (structureTile != null)
+                {
+                    _structureTilemap.SetTile(tile.Position, structureTile);
+                }
             }
         }
 

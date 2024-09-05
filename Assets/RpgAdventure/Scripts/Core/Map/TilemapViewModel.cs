@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Settings;
 using UniRx;
 using UnityEngine;
@@ -7,17 +9,26 @@ using UnityEngine.Tilemaps;
 
 namespace TandC.RpgAdventure.Core.HexGrid
 {
-    public class TilemapViewModel
+    public class TilemapViewModel : ILoadUnit
     {
         public List<TileModel> Tiles { get; private set; }
 
         private TileModel _currentCentralTile;
         private Tilemap _tilemap;
 
-        public TilemapViewModel(Tilemap tilemap)
+        public TilemapViewModel(Tilemap tilemap) 
         {
             _tilemap = tilemap;
+            if(AppConstants.DEBUG_ENABLE) 
+            {
+                InitializeTiles();
+            }
+        }
+
+        public UniTask Load()
+        {
             InitializeTiles();
+            return UniTask.CompletedTask;
         }
 
         private void InitializeTiles()
@@ -30,7 +41,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
                 Vector3Int tilePosition = new Vector3Int(position.x, position.y);
                 var tileBase = _tilemap.GetTile(position);
                 TileType type = DetermineTileType(tileBase);
-                var tileModel = new TileModel(tilePosition, type);
+                var tileModel = new TileModel(tilePosition, type, false);
 
                 var existingTile = tilesToAdd.FirstOrDefault(t => t.Position == tilePosition);
 

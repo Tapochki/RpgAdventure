@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214ccd9b51534a747a3b57c03113e9bb, type: 3}
+  m_Name: StructureConfig
+  m_EditorClassIdentifier: 
+  _numberOfCities: 1
+  _numberOfVillages: 1
+  _numberOfTaverns: 1
+  _numberOfCaves: 1
+  _numberOfPortal: 1
+  _minDistanceBetweenStructures: 3
+  _cityTile: {fileID: 11400000, guid: 6e2418af5572b50449baa145e92ce449, type: 2}
+  _villageTile: {fileID: 11400000, guid: c0693fb4903d2b440860468f6ebcb3f8, type: 2}
+  _tavernTile: {fileID: 11400000, guid: 407735f98e4140b49b53cfa025953ce0, type: 2}
+  _caveTile: {fileID: 11400000, guid: 9f21f7a120fdffd468c5c91828800e21, type: 2}
+  _portalTile: {fileID: 11400000, guid: 434214a8410e9a847b026b6f8ada74b3, type: 2}

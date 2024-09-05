@@ -7,4 +7,14 @@ namespace TandC.RpgAdventure.Settings
         Sand,
         Mountain,
     }
+
+    public enum StructureTileType 
+    {
+        None,
+        Tavern,
+        Village,
+        City,
+        Cave,
+        Portal
+    }
 }
