@@ -17,4 +17,18 @@ namespace TandC.RpgAdventure.Settings
         Cave,
         Portal
     }
+
+    public enum Languages // value of enum you can see in SystemLanguage class
+    {
+        Ukrainian = 38,
+        Russian = 30,
+        English = 10,
+    }
+
+    public enum CacheType
+    {
+        MapData,
+        AppSettingsData,
+        PurchaseData,
+    }
 }

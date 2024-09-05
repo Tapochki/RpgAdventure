@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using TandC.RpgAdventure.Config;
 using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Settings;
 using UniRx;
@@ -13,22 +14,97 @@ namespace TandC.RpgAdventure.Core.HexGrid
     {
         public List<TileModel> Tiles { get; private set; }
 
-        private TileModel _currentCentralTile;
+        public TileModel CurrentCentralTile { get; private set; }
         private Tilemap _tilemap;
 
-        public TilemapViewModel(Tilemap tilemap) 
+        private DataService _dataService;//Inject
+
+        private StructureConfig _structureConfig;
+
+        public TilemapViewModel(Tilemap tilemap, DataService dataService, StructureConfig structureConfig) 
         {
             _tilemap = tilemap;
-            if(AppConstants.DEBUG_ENABLE) 
+            _dataService = dataService;
+            _structureConfig = structureConfig;
+            LoadTileMapViewModel();
+        }
+
+        public void LoadTileMapViewModel() 
+        {
+            if (AppConstants.DEBUG_ENABLE)
             {
-                InitializeTiles();
+                if (_dataService.MapData.HasSaveData())
+                {
+                    LoadWorldState();
+                }
+                else
+                {
+                    InitializeTiles();
+                }
             }
         }
 
-        public UniTask Load()
+        public async UniTask Load()
         {
-            InitializeTiles();
-            return UniTask.CompletedTask;
+            //if (_dataService.MapData.HasSaveData())
+            //{
+            //    LoadWorldState();
+            //}
+            //else
+            //{
+            //    InitializeTiles();
+            //    await UniTask.CompletedTask;
+            //}
+        }
+
+        public void LoadWorldState()
+        {
+            Debug.LogError("Start World Load");
+            MapData mapData = _dataService.MapData;
+
+            var loadedTiles = new List<TileModel>();
+
+            foreach (var tileData in mapData.Tiles)
+            {
+                var tile = new TileModel(
+                    tileData.Position,
+                    tileData.Type,
+                    tileData.IsOpen,
+                    tileData.StructureType
+                );
+                loadedTiles.Add(tile);
+            }
+
+            Tiles = loadedTiles;
+
+            SetCurrentCentralTile(mapData.PlayerPosition);
+        }
+
+        public void SaveWorldState()
+        {
+            MapData mapData = _dataService.GetDefaultMapData();
+            foreach (var tile in Tiles)
+            {
+                var tileData = new TileSaveData
+                {
+                    Position = tile.Position,
+                    Type = tile.Type,
+                    StructureType = tile.StructureTileType,
+                    IsOpen = tile.IsOpen
+                };
+                mapData.Tiles.Add(tileData);
+            }
+            mapData.PlayerPosition = CurrentCentralTile.Position;
+            mapData.LevelId = 1;
+
+            _dataService.SaveCache(CacheType.MapData);
+        }
+
+        public void SetTileOpen(Vector3Int position)
+        {
+            //Debug.LogError(position);
+            //TileModel tile = GetTileAtPosition(position);
+            //tile.SetTileOpen();
         }
 
         private void InitializeTiles()
@@ -58,8 +134,10 @@ namespace TandC.RpgAdventure.Core.HexGrid
                     tilesToAdd.Add(tileModel);
                 }
             }
-
             Tiles = tilesToAdd;
+
+            var structureSpawner = new StructureSpawner(this, _structureConfig);
+            structureSpawner.SpawnStructures();
         }
 
         private TileType DetermineTileType(TileBase tile)
@@ -77,7 +155,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
         public TileModel GetSpawnPlayerTile()
         {
             TileModel spawnTile = GetRandomSpawnableTile();
-            _currentCentralTile = spawnTile;
+            CurrentCentralTile = spawnTile;
             return spawnTile;
         }
 
@@ -118,7 +196,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
                 new Vector3Int(-1, 1, 0)   // Bottom-Left (even Y)
             };
 
-            bool isEvenRow = _currentCentralTile.Position.y % 2 == 0;
+            bool isEvenRow = CurrentCentralTile.Position.y % 2 == 0;
 
             if (!isEvenRow)
             {
@@ -133,7 +211,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
             foreach (var direction in directions)
             {
-                var neighborPosition = _currentCentralTile.Position + direction;
+                var neighborPosition = CurrentCentralTile.Position + direction;
 
                 if (tilePositionSet.Contains(neighborPosition))
                 {
@@ -153,7 +231,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
             var tile = GetTileAtPosition(position);
             if (tile != null)
             {
-                _currentCentralTile = tile;
+                CurrentCentralTile = tile;
             }
         }
     }

@@ -1,0 +1,46 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace TandC.RpgAdventure.Settings
+{
+    public class PurchaseData
+    {
+        public bool isRemovedAds;
+    }
+
+    public class AppSettingsData
+    {
+        public bool isFirstRun;
+        public float soundVolume;
+        public float musicVolume;
+        public Languages appLanguage;
+    }
+
+    public class LocalisationSheetData
+    {
+        public string Key;
+        public string English;
+        public string Ukrainian;
+        public string Russian;
+    }
+
+    public class MapData
+    {
+        public int LevelId;
+        public List<TileSaveData> Tiles;
+        public Vector3Int PlayerPosition;
+
+        public bool HasSaveData() 
+        {
+            return LevelId > 0;
+        }
+    }
+
+    public class TileSaveData
+    {
+        public Vector3Int Position;
+        public TileType Type;
+        public StructureTileType StructureType;
+        public bool IsOpen;
+    }
+}

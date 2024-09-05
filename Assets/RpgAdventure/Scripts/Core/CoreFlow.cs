@@ -23,7 +23,7 @@ namespace TandC.RpgAdventure.Core
         {
             await _loadingService.BeginLoading(_tilemapViewModel);
 
-            _tilemapView.Initialize();
+           // _tilemapView.Initialize();
         }
     }
 }

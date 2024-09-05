@@ -22,6 +22,11 @@ namespace TandC.RpgAdventure.Core.HexGrid
         {
             StructureTileType = structureTileType;
         }
+
+        public void SetTileOpen() 
+        {
+            IsOpen = true;
+        }
     }
 }
 

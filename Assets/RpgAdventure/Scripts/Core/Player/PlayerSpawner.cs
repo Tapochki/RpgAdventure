@@ -30,15 +30,25 @@ namespace TandC.RpgAdventure.Core.Player
             SpawnPlayer();
         }
 
-        public void SpawnPlayer()
+        public void SpawnPlayer(TileModel tileModel = null)
         {
-            var spawnTile = _viewModel.GetSpawnPlayerTile();
-            if (spawnTile == null) return;
+            if (tileModel == null)
+            {
+                tileModel = _viewModel.GetSpawnPlayerTile();
+            }
 
-            var worldPosition = _tilemap.CellToWorld(spawnTile.Position) + _step;
+            if (tileModel != null)
+            {
+                CreatePlayer(tileModel);
+            }
+        }
+
+        public void CreatePlayer(TileModel tileModel) 
+        {
+            var worldPosition = _tilemap.CellToWorld(tileModel.Position) + _step;
             Player = Object.Instantiate(_playerPrefab, worldPosition, Quaternion.identity);
 
-            _fogOfWar.UpdateFog(spawnTile.Position);
+            _fogOfWar.UpdateFog(tileModel.Position);
         }
 
         public void MovePlayerToTile(TileModel tile)

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 namespace TandC.RpgAdventure.Core.HexGrid
 {
@@ -9,11 +10,17 @@ namespace TandC.RpgAdventure.Core.HexGrid
         [SerializeField] private AnimatedTile _fogTile;
 
         [SerializeField] private Tilemap _tilemap;
-        [SerializeField] private TilemapViewModel _viewModel;
 
         [SerializeField] private int _fogStep;
 
         [SerializeField] private Vector3Int _tilePosition;
+
+        private TilemapViewModel _tilemapViewModel;
+
+        public void SetTileViewModel(TilemapViewModel tilemapViewModel) 
+        {
+            _tilemapViewModel = tilemapViewModel;
+        }
 
         public void InitializeFog()
         {
@@ -34,13 +41,16 @@ namespace TandC.RpgAdventure.Core.HexGrid
             {
                 for(int j = -_fogStep; j <= _fogStep; j++) 
                 {
-                    _fogTilemap.SetTile(playerPosition + new Vector3Int(i, j), null);
+                    Vector3Int openedPosition = playerPosition + new Vector3Int(i, j);
+                    _fogTilemap.SetTile(openedPosition, null);
+                    _tilemapViewModel.SetTileOpen(openedPosition);
                 }
             }
         }
 
         public void OpenFogPosition(Vector3Int tilePosition) 
         {
+            Debug.LogError($"{tilePosition} {_fogTilemap.GetTile(tilePosition)}");
             _fogTilemap.SetTile(tilePosition, null);
         }
     }

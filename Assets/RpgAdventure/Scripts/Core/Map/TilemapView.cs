@@ -21,6 +21,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
         [SerializeField] private FogOfWar _fogOfWar;
         [SerializeField] private Tilemap _structureTilemap;
         [SerializeField] private StructureConfig _structureConfig;
+        [SerializeField] private DataService _dataService;
 
         [Inject] private TilemapViewModel _viewModel;
         [Inject] private ClickDetector2D _clickDetector;
@@ -33,52 +34,79 @@ namespace TandC.RpgAdventure.Core.HexGrid
             if (AppConstants.DEBUG_ENABLE) 
             {
                 _clickDetector = GameObject.Find("ClickDetector").GetComponent<ClickDetector2D>();
-                _viewModel = new TilemapViewModel(_tilemap);
+                _viewModel = new TilemapViewModel(_tilemap, _dataService, _structureConfig);
+                _fogOfWar.SetTileViewModel(_viewModel);
                 _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
 
-                var structureSpawner = new StructureSpawner(_viewModel, _structureConfig);
-                structureSpawner.SpawnStructures();
-
-                CreatePlaceholders();
-                _playerSpawner.SpawnPlayer();
+                InitializeTiles();
+                _playerSpawner.SpawnPlayer(_viewModel.CurrentCentralTile);
                 UpdateTileVisibility();
                 HandleClicks();
             }
         }
 
-        public void Initialize()
-        {
-          //  _viewModel = new TilemapViewModel(_tilemap);
-            _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
-            CreatePlaceholders();
-            _playerSpawner.SpawnPlayer();
-            UpdateTileVisibility();
-            HandleClicks();
-        }
+        //public void Initialize()
+        //{
+        //    //  _viewModel = new TilemapViewModel(_tilemap);
+        //    _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
+        //    InitializeTiles();
+        //    _playerSpawner.SpawnPlayer(_viewModel.CurrentCentralTile);
+        //    UpdateTileVisibility();
+        //    HandleClicks();
+        //}
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.V)) 
+            if(Input.GetKeyDown(KeyCode.S)) 
             {
-                _playerSpawner.RespawnPlayer();
+                _viewModel.SaveWorldState();
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                _viewModel.LoadTileMapViewModel();
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                _dataService.ResetData(CacheType.MapData);
+                _structureTilemap.ClearAllTiles();
+                //Initialize();
             }
         }
 
-        private void CreatePlaceholders()
+        private void InitializeTiles()
         {
             foreach (var tile in _viewModel.Tiles)
             {
-                var worldPosition = _tilemap.CellToWorld(tile.Position) + _step;
-                var placeholder = Instantiate(_placeholderPrefab, worldPosition, Quaternion.identity, transform);
-                placeholder.name = $"Placeholder_{tile.Type}_{tile.Position}";
-                placeholder.SetActive(false);
-                _placeholders.Add(placeholder);
+                CreatePlaceHolders(tile);
+                CreateStructure(tile);
+                OpenFogOfWar(tile);
+            }
+        }
 
-                Tile structureTile = _structureConfig.GetStructureTile(tile.StructureTileType);
-                if (structureTile != null)
-                {
-                    _structureTilemap.SetTile(tile.Position, structureTile);
-                }
+        private void CreatePlaceHolders(TileModel tileModel) 
+        {
+            var worldPosition = _tilemap.CellToWorld(tileModel.Position) + _step;
+            var placeholder = Instantiate(_placeholderPrefab, worldPosition, Quaternion.identity, transform);
+            placeholder.name = $"Placeholder_{tileModel.Type}_{tileModel.Position}";
+            placeholder.SetActive(false);
+            _placeholders.Add(placeholder);
+        }
+
+        private void CreateStructure(TileModel tileModel) 
+        {
+            Tile structureTile = _structureConfig.GetStructureTile(tileModel.StructureTileType);
+            if (structureTile != null)
+            {
+                _structureTilemap.SetTile(tileModel.Position, structureTile);
+            }
+        }
+
+        private void OpenFogOfWar(TileModel tileModel) 
+        {
+            if(tileModel.IsOpen) 
+            {
+                Debug.LogError($"{tileModel.Position} must be open");
+                _fogOfWar.OpenFogPosition(tileModel.Position);
             }
         }
 
