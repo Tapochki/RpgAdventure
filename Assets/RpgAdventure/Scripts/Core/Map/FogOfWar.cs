@@ -6,7 +6,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
     public class FogOfWar : MonoBehaviour
     {
         [SerializeField] private Tilemap _fogTilemap;
-        [SerializeField] private TileBase _fogTile;
+        [SerializeField] private AnimatedTile _fogTile;
 
         [SerializeField] private Tilemap _tilemap;
         [SerializeField] private TilemapViewModel _viewModel;
