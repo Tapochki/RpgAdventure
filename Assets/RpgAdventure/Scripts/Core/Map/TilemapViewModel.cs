@@ -5,6 +5,7 @@ using TandC.RpgAdventure.Config;
 using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Settings;
 using UniRx;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -102,9 +103,17 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
         public void SetTileOpen(Vector3Int position)
         {
-            //Debug.LogError(position);
-            //TileModel tile = GetTileAtPosition(position);
-            //tile.SetTileOpen();
+            Debug.LogError(position);
+            TileModel tile = GetTileAtPosition(position);
+            if(tile != null)
+            {
+                tile.SetTileOpen();
+            }
+            else 
+            {
+                Debug.LogError($"Error at position {position}");
+            }
+
         }
 
         private void InitializeTiles()

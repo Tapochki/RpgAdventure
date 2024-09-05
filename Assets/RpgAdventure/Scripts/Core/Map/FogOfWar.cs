@@ -37,6 +37,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
         public void UpdateFog(Vector3Int playerPosition)
         {
+            Debug.LogError(playerPosition);
             for (int i = -_fogStep; i <= _fogStep; i++)
             {
                 for(int j = -_fogStep; j <= _fogStep; j++) 
