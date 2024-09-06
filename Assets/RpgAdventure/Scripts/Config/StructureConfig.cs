@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TandC.RpgAdventure.Settings;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 namespace TandC.RpgAdventure.Config
 {
@@ -15,11 +14,11 @@ namespace TandC.RpgAdventure.Config
         [SerializeField] private int _numberOfPortal = 1;
         [SerializeField] private int _minDistanceBetweenStructures = 3;
 
-        [SerializeField] private Tile _cityTile;
-        [SerializeField] private Tile _villageTile;
-        [SerializeField] private Tile _tavernTile;
-        [SerializeField] private Tile _caveTile;
-        [SerializeField] private Tile _portalTile;
+        [SerializeField] private Sprite _citySprite;
+        [SerializeField] private Sprite _villageSprite;
+        [SerializeField] private Sprite _tavernSprite;
+        [SerializeField] private Sprite _caveSprite;
+        [SerializeField] private Sprite _portalSprite;
 
         public int NumberOfCities { get => _numberOfCities; }
         public int NumberOfVillages { get => _numberOfVillages; }
@@ -28,7 +27,9 @@ namespace TandC.RpgAdventure.Config
         public int NumberOfPortals { get => _numberOfPortal; }
         public int MinDistanceBetweenStructures { get => _minDistanceBetweenStructures; }
 
-        private Dictionary<StructureTileType, Tile> _structureTileMap;
+        private Dictionary<StructureTileType, Sprite> _structureTileMap;
+
+        [SerializeField]  private GameObject _structurePrefab;
 
         private void OnEnable()
         {
@@ -37,19 +38,23 @@ namespace TandC.RpgAdventure.Config
 
         private void InitializeTileMap()
         {
-            _structureTileMap = new Dictionary<StructureTileType, Tile>
-        {
-            { StructureTileType.City, _cityTile },
-            { StructureTileType.Village, _villageTile },
-            { StructureTileType.Tavern, _tavernTile },
-            { StructureTileType.Cave, _caveTile },
-            { StructureTileType.Portal, _portalTile }
+            _structureTileMap = new Dictionary<StructureTileType, Sprite> { 
+            { StructureTileType.City, _citySprite },
+            { StructureTileType.Village, _villageSprite },
+            { StructureTileType.Tavern, _tavernSprite },
+            { StructureTileType.Cave, _caveSprite },
+            { StructureTileType.Portal, _portalSprite }
         };
         }
 
-        public Tile GetStructureTile(StructureTileType structureTileType)
+        public Sprite GetStructureSprite(StructureTileType structureTileType)
         {
             return _structureTileMap.TryGetValue(structureTileType, out var tile) ? tile : null;
+        }
+
+        public GameObject GetStructurePrefab(StructureTileType type)
+        {
+            return _structurePrefab;
         }
     }
 }

@@ -5,7 +5,7 @@ using TandC.RpgAdventure.Core.HexGrid;
 using TandC.RpgAdventure.Settings;
 using UnityEngine;
 
-public class StructureSpawner : MonoBehaviour
+public class StructureSpawner
 {
     private readonly TilemapViewModel _tilemapViewModel;
     private readonly StructureConfig _config;
@@ -20,14 +20,14 @@ public class StructureSpawner : MonoBehaviour
     public void SpawnStructures()
     {
         SpawnStructure(StructureTileType.City, _config.NumberOfCities);
+        Debug.LogError("Spawn");
+        //SpawnStructure(StructureTileType.Village, _config.NumberOfVillages);
 
-        SpawnStructure(StructureTileType.Village, _config.NumberOfVillages);
+        //SpawnStructure(StructureTileType.Tavern, _config.NumberOfTaverns);
 
-        SpawnStructure(StructureTileType.Tavern, _config.NumberOfTaverns);
+        //SpawnStructure(StructureTileType.Cave, _config.NumberOfCaves);
 
-        SpawnStructure(StructureTileType.Cave, _config.NumberOfCaves);
-
-        SpawnStructure(StructureTileType.Portal, _config.NumberOfPortals);
+        //SpawnStructure(StructureTileType.Portal, _config.NumberOfPortals);
     }
 
     private void SpawnStructure(StructureTileType structureType, int count)
@@ -35,7 +35,7 @@ public class StructureSpawner : MonoBehaviour
         var eligibleTiles = _tilemapViewModel.Tiles
             .Where(t => t.Type == TileType.Land || t.Type == TileType.Sand)
             .ToList();
-
+        Debug.LogError(eligibleTiles.Count);
         for (int i = 0; i < count; i++)
         {
             if (eligibleTiles.Count == 0) break;
@@ -59,7 +59,7 @@ public class StructureSpawner : MonoBehaviour
             }
 
             _spawnedPositions.Add(selectedTile.Position);
-
+            Debug.LogError(selectedTile.Position);
             selectedTile.ChangeStructureType(structureType);
         }
     }

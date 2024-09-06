@@ -18,8 +18,9 @@ MonoBehaviour:
   _numberOfCaves: 1
   _numberOfPortal: 1
   _minDistanceBetweenStructures: 3
-  _cityTile: {fileID: 11400000, guid: 6e2418af5572b50449baa145e92ce449, type: 2}
-  _villageTile: {fileID: 11400000, guid: c0693fb4903d2b440860468f6ebcb3f8, type: 2}
-  _tavernTile: {fileID: 11400000, guid: 407735f98e4140b49b53cfa025953ce0, type: 2}
-  _caveTile: {fileID: 11400000, guid: 9f21f7a120fdffd468c5c91828800e21, type: 2}
-  _portalTile: {fileID: 11400000, guid: 434214a8410e9a847b026b6f8ada74b3, type: 2}
+  _citySprite: {fileID: 21300000, guid: c2aa8bf49e2d33c468888303772eae7b, type: 3}
+  _villageSprite: {fileID: 0}
+  _tavernSprite: {fileID: 0}
+  _caveSprite: {fileID: 0}
+  _portalSprite: {fileID: 0}
+  _structurePrefab: {fileID: 6700901524588227694, guid: 4cff590d69cfd4643b33fa01990415c3, type: 3}

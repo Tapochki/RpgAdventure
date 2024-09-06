@@ -22,6 +22,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
         [SerializeField] private Tilemap _structureTilemap;
         [SerializeField] private StructureConfig _structureConfig;
         [SerializeField] private DataService _dataService;
+        [SerializeField] private Transform _structureParent;
 
         [Inject] private TilemapViewModel _viewModel;
         [Inject] private ClickDetector2D _clickDetector;
@@ -78,7 +79,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
             foreach (var tile in _viewModel.Tiles)
             {
                 CreatePlaceHolders(tile);
-                //CreateStructure(tile);
+                CreateStructure(tile);
                 OpenFogOfWar(tile);
             }
         }
@@ -94,10 +95,16 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
         private void CreateStructure(TileModel tileModel) 
         {
-            Tile structureTile = _structureConfig.GetStructureTile(tileModel.StructureTileType);
-            if (structureTile != null)
+            Sprite structureSprite = _structureConfig.GetStructureSprite(tileModel.StructureTileType);
+            if (structureSprite != null)
             {
-                _structureTilemap.SetTile(tileModel.Position, structureTile);
+                GameObject structurePrefab = _structureConfig.GetStructurePrefab(tileModel.StructureTileType);
+                GameObject structureObject = Instantiate(structurePrefab, _structureParent);
+                SpriteRenderer spriteRenderer = structurePrefab.GetComponentInChildren<SpriteRenderer>();
+
+                structureObject.transform.position = _tilemap.CellToWorld(tileModel.Position) + _step;
+
+                spriteRenderer.sprite = structureSprite;
             }
         }
 
