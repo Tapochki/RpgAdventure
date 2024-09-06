@@ -18,7 +18,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
             StructureTileType = structureTileType;
         }
 
-        public void ChengeStructureType(StructureTileType structureTileType) 
+        public void ChangeStructureType(StructureTileType structureTileType) 
         {
             StructureTileType = structureTileType;
         }

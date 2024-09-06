@@ -78,7 +78,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
             foreach (var tile in _viewModel.Tiles)
             {
                 CreatePlaceHolders(tile);
-                CreateStructure(tile);
+                //CreateStructure(tile);
                 OpenFogOfWar(tile);
             }
         }
@@ -120,6 +120,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
         public void HandleTileClick(Vector3 clickPosition)
         {
+            Debug.LogError(clickPosition);
             var cellPosition = _tilemap.WorldToCell(clickPosition);
             var clickedTile = _viewModel.GetTileAtPosition(cellPosition);
 
@@ -146,10 +147,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
         private void SetPlaceholderVisible(GameObject placeholder, bool visible)
         {
-            if (placeholder != null)
-            {
-                placeholder.SetActive(visible);
-            }
+            placeholder?.SetActive(visible);
         }
     }
 }

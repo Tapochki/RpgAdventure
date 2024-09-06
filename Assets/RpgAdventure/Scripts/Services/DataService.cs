@@ -4,7 +4,6 @@ using System.IO;
 using TandC.Project.Utilities;
 using TandC.RpgAdventure.Settings;
 using TandC.RpgAdventure.Utilities.Logging;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 namespace TandC.RpgAdventure.Services

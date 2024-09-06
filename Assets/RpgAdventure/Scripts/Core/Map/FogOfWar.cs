@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 namespace TandC.RpgAdventure.Core.HexGrid
 {
     public class FogOfWar : MonoBehaviour
     {
         [SerializeField] private Tilemap _fogTilemap;
-        [SerializeField] private AnimatedTile _fogTile;
+        [SerializeField] private Tile _fogTile;
 
         [SerializeField] private Tilemap _tilemap;
 
@@ -37,7 +36,6 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
         public void UpdateFog(Vector3Int playerPosition)
         {
-            Debug.LogError(playerPosition);
             for (int i = -_fogStep; i <= _fogStep; i++)
             {
                 for(int j = -_fogStep; j <= _fogStep; j++) 

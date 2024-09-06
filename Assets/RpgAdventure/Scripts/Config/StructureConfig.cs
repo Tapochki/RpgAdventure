@@ -25,7 +25,7 @@ namespace TandC.RpgAdventure.Config
         public int NumberOfVillages { get => _numberOfVillages; }
         public int NumberOfTaverns { get => _numberOfTaverns; }
         public int NumberOfCaves { get => _numberOfCaves; }
-        public int NumberOfPortal { get => _numberOfPortal; }
+        public int NumberOfPortals { get => _numberOfPortal; }
         public int MinDistanceBetweenStructures { get => _minDistanceBetweenStructures; }
 
         private Dictionary<StructureTileType, Tile> _structureTileMap;

@@ -27,7 +27,7 @@ public class StructureSpawner : MonoBehaviour
 
         SpawnStructure(StructureTileType.Cave, _config.NumberOfCaves);
 
-        SpawnStructure(StructureTileType.Portal, _config.NumberOfCaves);
+        SpawnStructure(StructureTileType.Portal, _config.NumberOfPortals);
     }
 
     private void SpawnStructure(StructureTileType structureType, int count)
@@ -60,7 +60,7 @@ public class StructureSpawner : MonoBehaviour
 
             _spawnedPositions.Add(selectedTile.Position);
 
-            selectedTile.ChengeStructureType(structureType);
+            selectedTile.ChangeStructureType(structureType);
         }
     }
 
