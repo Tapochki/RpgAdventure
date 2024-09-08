@@ -181,25 +181,7 @@ namespace TandC.RpgAdventure.Core.Map
 
         public List<TileModel> GetSurroundingTiles()
         {
-            Vector3Int[] directions = new Vector3Int[]
-            {
-                new Vector3Int(1, 0, 0),   // Top
-                new Vector3Int(-1, 0, 0),  // Bottom
-                new Vector3Int(0, -1, 0),  // Top-Left (even Y), Bottom-Left (odd Y)
-                new Vector3Int(0, 1, 0),   // Top-Right (even Y), Bottom-Right (odd Y)
-                new Vector3Int(-1, -1, 0), // Bottom-Right (even Y)
-                new Vector3Int(-1, 1, 0)   // Bottom-Left (even Y)
-            };
-
-            bool isEvenRow = CurrentCentralTile.Position.y % 2 == 0;
-
-            if (!isEvenRow)
-            {
-                directions[2] += new Vector3Int(1, 0, 0);  // Top-Left becomes Top-Right
-                directions[3] += new Vector3Int(1, 0, 0);  // Top-Right becomes Bottom-Right
-                directions[4] += new Vector3Int(1, 0, 0);  // Bottom-Right becomes Top-Left
-                directions[5] += new Vector3Int(1, 0, 0);  // Bottom-Left becomes Bottom-Right
-            }
+            Vector3Int[] directions = GetDirections();
 
             var surroundingTiles = new List<TileModel>();
             var tilePositionSet = new HashSet<Vector3Int>(Tiles.Select(t => t.Position));
@@ -219,6 +201,31 @@ namespace TandC.RpgAdventure.Core.Map
             }
 
             return surroundingTiles;
+        }
+
+        public Vector3Int[] GetDirections()
+        {
+            Vector3Int[] directions = new Vector3Int[]
+            {
+            new Vector3Int(1, 0, 0),   // Right
+            new Vector3Int(-1, 0, 0),  // Left
+            new Vector3Int(0, -1, 0),  // Down
+            new Vector3Int(0, 1, 0),   // Up
+            new Vector3Int(-1, -1, 0), // Bottom-Left
+            new Vector3Int(-1, 1, 0)   // Top-Left
+            };
+
+            bool isEvenRow = CurrentCentralTile.Position.y % 2 == 0;
+
+            if (!isEvenRow)
+            {
+                directions[2] += new Vector3Int(1, 0, 0);  // Down-Left becomes Down-Right
+                directions[3] += new Vector3Int(1, 0, 0);  // Up becomes Down-Right
+                directions[4] += new Vector3Int(1, 0, 0);  // Bottom-Left becomes Top-Left
+                directions[5] += new Vector3Int(1, 0, 0);  // Top-Left becomes Bottom-Left
+            }
+
+            return directions;
         }
 
         public void SetCurrentCentralTile(Vector3Int position)

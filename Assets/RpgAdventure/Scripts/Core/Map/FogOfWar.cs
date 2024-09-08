@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;
@@ -15,7 +17,7 @@ namespace TandC.RpgAdventure.Core.Map
 
         [Inject] private TilemapViewModel _tilemapViewModel;
 
-        public void SetTileViewModel(TilemapViewModel tilemapViewModel) 
+        public void SetTileViewModel(TilemapViewModel tilemapViewModel)
         {
             _tilemapViewModel = tilemapViewModel;
         }
@@ -32,21 +34,31 @@ namespace TandC.RpgAdventure.Core.Map
                 }
             }
         }
+        //public void UpdateFog(Vector3Int playerPosition) Old
+        //{
+        //    for (int i = -_fogStep; i <= _fogStep; i++)
+        //    {
+        //        for (int j = -_fogStep; j <= _fogStep; j++)
+        //        {
+        //            Vector3Int openedPosition = playerPosition + new Vector3Int(i, j);
+        //            _fogTilemap.SetTile(openedPosition, null);
+        //            _tilemapViewModel.SetTileOpen(openedPosition);
+        //        }
+        //    }
+        //}
 
         public void UpdateFog(Vector3Int playerPosition)
         {
-            for (int i = -_fogStep; i <= _fogStep; i++)
+            Vector3Int[] directions = _tilemapViewModel.GetDirections();
+            for (int i = 0; i < directions.Length; i++)
             {
-                for(int j = -_fogStep; j <= _fogStep; j++) 
-                {
-                    Vector3Int openedPosition = playerPosition + new Vector3Int(i, j);
-                    _fogTilemap.SetTile(openedPosition, null);
-                    _tilemapViewModel.SetTileOpen(openedPosition);
-                }
+                Vector3Int openedPosition = playerPosition + directions[i];
+                _fogTilemap.SetTile(openedPosition, null);
+                _tilemapViewModel.SetTileOpen(openedPosition);
             }
         }
 
-        public void OpenFogPosition(Vector3Int tilePosition) 
+        public void OpenFogPosition(Vector3Int tilePosition)
         {
             _fogTilemap.SetTile(tilePosition, null);
         }
