@@ -1,17 +1,24 @@
+using Cysharp.Threading.Tasks;
 using System;
 using UniRx;
 using UnityEngine;
 
 namespace TandC.RpgAdventure.Services 
 {
-    public class ClickDetector2D : MonoBehaviour
+    public class ClickDetector2D: ILoadUnit
     {
         private Camera mainCamera;
 
         public IObservable<GameObject> OnObjectClicked => onObjectClicked;
         private Subject<GameObject> onObjectClicked = new Subject<GameObject>();
 
-        private void Start()
+        public async UniTask Load()
+        {
+            Initialize();
+            await UniTask.CompletedTask;
+        }
+
+        private void Initialize()
         {
             mainCamera = Camera.main;
 

@@ -1,5 +1,4 @@
 using TandC.RpgAdventure.Services;
-using TandC.RpgAdventure.Utilities;
 using VContainer;
 using VContainer.Unity;
 
@@ -9,7 +8,6 @@ namespace TandC.RpgAdventure.Bootstrap
     {
         protected override void Awake()
         {
-          //  IsRoot = true;
             DontDestroyOnLoad(this);
             base.Awake();
         }
@@ -17,6 +15,7 @@ namespace TandC.RpgAdventure.Bootstrap
         protected override void Configure(IContainerBuilder builder)
         {
             builder.Register<LoadingService>(Lifetime.Scoped);
+            builder.Register<DataService>(Lifetime.Singleton).AsSelf();
             builder.Register<SceneManager>(Lifetime.Singleton);
             
             builder.RegisterEntryPoint<BootstrapFlow>();

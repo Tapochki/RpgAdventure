@@ -1,5 +1,4 @@
 ﻿using TandC.RpgAdventure.Bootstrap.Units;
-using TandC.RpgAdventure.Utilities;
 using Cysharp.Threading.Tasks;
 using VContainer.Unity;
 using TandC.RpgAdventure.Settings;
@@ -20,7 +19,7 @@ namespace TandC.RpgAdventure.Meta
 
         public async void Start()
         {
-            await _loadingService.BeginLoading(new FooLoadingUnit(3));
+            await _loadingService.BeginLoading(new FooLoadingUnit(1));
             _sceneManager.LoadScene(AppConstants.Scenes.Core).Forget();
         }
     }

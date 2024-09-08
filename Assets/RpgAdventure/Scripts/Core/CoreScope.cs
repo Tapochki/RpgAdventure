@@ -1,8 +1,8 @@
-﻿using TandC.RpgAdventure.Core.HexGrid;
+﻿using TandC.RpgAdventure.Config;
+using TandC.RpgAdventure.Core.Map;
 using TandC.RpgAdventure.Core.Player;
 using TandC.RpgAdventure.Services;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using VContainer;
 using VContainer.Unity;
 
@@ -10,17 +10,28 @@ namespace TandC.RpgAdventure.Core
 {
     public sealed class CoreScope : LifetimeScope
     {
-        [SerializeField] private Tilemap _tileMap;
-        [SerializeField] private TilemapView _tileMapView;
+        [SerializeField] private GameObject _tilemapPrefab;
+        [SerializeField] private TilemapView _tilemapView;
+        [SerializeField] private FogOfWar _fogOfWar;
+        [SerializeField] private Grid _grid;
+        [SerializeField] private LevelConfig _levelConfig;
+        [SerializeField] private StructureConfig _structureConfig;
+        [SerializeField] private GameObject _playerPrefab;
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponent(_tileMapView).AsSelf();
+            builder.RegisterInstance(new TilemapFactory(_tilemapPrefab, _grid)).AsSelf();
+            builder.RegisterInstance(new PlayerFactory(_playerPrefab)).AsSelf();
 
-            builder.Register<ClickDetector2D>(Lifetime.Scoped);
+            builder.RegisterComponent(_tilemapView).AsSelf();
+            builder.RegisterComponent(_fogOfWar).AsSelf();
+            builder.RegisterInstance(_levelConfig).AsSelf();
+            builder.RegisterInstance(_structureConfig).AsSelf();
+
             builder.Register<PlayerSpawner>(Lifetime.Scoped);
+            builder.Register<ClickDetector2D>(Lifetime.Scoped);
             builder.Register<LoadingService>(Lifetime.Scoped);
-            builder.Register<TilemapViewModel>(Lifetime.Scoped).WithParameter(_tileMap);
+            builder.Register<TilemapViewModel>(Lifetime.Scoped);
 
             builder.RegisterEntryPoint<CoreFlow>();
         }

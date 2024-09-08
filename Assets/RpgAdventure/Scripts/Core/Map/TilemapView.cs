@@ -8,70 +8,45 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;
 
-namespace TandC.RpgAdventure.Core.HexGrid
+namespace TandC.RpgAdventure.Core.Map
 {
     public class TilemapView : MonoBehaviour
     {
-        [SerializeField] private Tilemap _tilemap;
+
         [SerializeField] private GameObject _placeholderPrefab;
         [SerializeField] private GameObject _playerPrefab;
-
-        [SerializeField] private Vector3 _step;
-
-        [SerializeField] private FogOfWar _fogOfWar;
         [SerializeField] private Tilemap _structureTilemap;
-        [SerializeField] private StructureConfig _structureConfig;
-        [SerializeField] private DataService _dataService;
         [SerializeField] private Transform _structureParent;
 
-        [Inject] private TilemapViewModel _viewModel;
         [Inject] private ClickDetector2D _clickDetector;
+        [Inject] private FogOfWar _fogOfWar;
+        [Inject] private StructureConfig _structureConfig;
+        [Inject] private PlayerSpawner _playerSpawner;
+
+        private TilemapViewModel _viewModel;
+
+        private Tilemap _tilemap;
+
+        private Vector3 _step;
 
         private List<GameObject> _placeholders = new List<GameObject>();
-        private PlayerSpawner _playerSpawner;
 
-        public void Start()
+
+
+        public void SetTileViewModel(TilemapViewModel tilemapViewModel, Tilemap currentTileMap)
         {
-            if (AppConstants.DEBUG_ENABLE) 
-            {
-                _clickDetector = GameObject.Find("ClickDetector").GetComponent<ClickDetector2D>();
-                _viewModel = new TilemapViewModel(_tilemap, _dataService, _structureConfig);
-                _fogOfWar.SetTileViewModel(_viewModel);
-                _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
-
-                InitializeTiles();
-                _playerSpawner.SpawnPlayer(_viewModel.CurrentCentralTile);
-                UpdateTileVisibility();
-                HandleClicks();
-            }
+            _viewModel = tilemapViewModel;
+            _tilemap = currentTileMap;
         }
 
-        //public void Initialize()
-        //{
-        //    //  _viewModel = new TilemapViewModel(_tilemap);
-        //    _playerSpawner = new PlayerSpawner(_viewModel, _tilemap, _playerPrefab, _step, _fogOfWar);
-        //    InitializeTiles();
-        //    _playerSpawner.SpawnPlayer(_viewModel.CurrentCentralTile);
-        //    UpdateTileVisibility();
-        //    HandleClicks();
-        //}
-
-        private void Update()
+        public void Initialize()
         {
-            if(Input.GetKeyDown(KeyCode.S)) 
-            {
-                _viewModel.SaveWorldState();
-            }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                _viewModel.LoadTileMapViewModel();
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                _dataService.ResetData(CacheType.MapData);
-                _structureTilemap.ClearAllTiles();
-                //Initialize();
-            }
+            _step = AppConstants.TILE_STEP;
+            InitializeTiles();
+            _fogOfWar.InitializeFog();
+            _playerSpawner.SpawnPlayer(_viewModel.CurrentCentralTile);
+            UpdateTileVisibility();
+            HandleClicks();
         }
 
         private void InitializeTiles()
@@ -112,7 +87,6 @@ namespace TandC.RpgAdventure.Core.HexGrid
         {
             if(tileModel.IsOpen) 
             {
-                Debug.LogError($"{tileModel.Position} must be open");
                 _fogOfWar.OpenFogPosition(tileModel.Position);
             }
         }
@@ -127,7 +101,6 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
         public void HandleTileClick(Vector3 clickPosition)
         {
-            Debug.LogError(clickPosition);
             var cellPosition = _tilemap.WorldToCell(clickPosition);
             var clickedTile = _viewModel.GetTileAtPosition(cellPosition);
 

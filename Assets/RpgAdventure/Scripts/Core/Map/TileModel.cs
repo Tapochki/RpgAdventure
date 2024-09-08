@@ -1,7 +1,7 @@
 using TandC.RpgAdventure.Settings;
 using UnityEngine;
 
-namespace TandC.RpgAdventure.Core.HexGrid
+namespace TandC.RpgAdventure.Core.Map
 {
     public class TileModel
     {

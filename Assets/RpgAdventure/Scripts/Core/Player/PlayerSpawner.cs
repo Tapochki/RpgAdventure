@@ -1,27 +1,31 @@
-using TandC.RpgAdventure.Core.HexGrid;
+using TandC.RpgAdventure.Core.Map;
+using TandC.RpgAdventure.Settings;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using VContainer;
 
 namespace TandC.RpgAdventure.Core.Player
 {
     public class PlayerSpawner
     {
-        private readonly TilemapViewModel _viewModel;
-        private readonly Tilemap _tilemap;
-        private readonly GameObject _playerPrefab;
-        private readonly Vector3 _step;
-        private readonly FogOfWar _fogOfWar;
+        private Tilemap _tilemap;
+        private GameObject _playerPrefab;
+        private Vector3 _step;
+
+        [Inject] private readonly FogOfWar _fogOfWar;
+        [Inject] private readonly TilemapViewModel _viewModel;
 
         public GameObject Player { get; private set; }
 
-        public PlayerSpawner(TilemapViewModel viewModel, Tilemap tilemap, GameObject playerPrefab, Vector3 step, FogOfWar fogOfWar)
+        public void SetPlayerPrefab(GameObject playerPrefab) 
         {
-            _viewModel = viewModel;
-            _tilemap = tilemap;
             _playerPrefab = playerPrefab;
-            _step = step;
-            _fogOfWar = fogOfWar;
-            _fogOfWar.InitializeFog();
+        }
+
+        public void Initialize(Tilemap tilemap) 
+        {
+            _tilemap = tilemap;
+            _step = AppConstants.TILE_STEP;
         }
 
         public void RespawnPlayer() 

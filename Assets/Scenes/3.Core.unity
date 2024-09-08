@@ -737,6 +737,54 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &279630519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 279630521}
+  - component: {fileID: 279630520}
+  m_Layer: 0
+  m_Name: FogOfWar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &279630520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279630519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f74543b564fb9e409f0b2ab8ee47489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fogTilemap: {fileID: 640956227}
+  _fogTile: {fileID: 11400000, guid: cae05fe14c8d44e489a7264de2e984ee, type: 2}
+  _tilemap: {fileID: 968612198}
+  _fogStep: 1
+--- !u!4 &279630521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279630519}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,11 +1952,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 906220732329761961, guid: 0e86bebdc7e116c4e8604993e763a8d8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1581136593151745278, guid: 0e86bebdc7e116c4e8604993e763a8d8, type: 3}
       propertyPath: m_Name
       value: Grid
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581136593151745278, guid: 0e86bebdc7e116c4e8604993e763a8d8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4762303695511546984, guid: 0e86bebdc7e116c4e8604993e763a8d8, type: 3}
       propertyPath: m_Enabled
@@ -18388,6 +18440,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4844482363191990845, guid: 0e86bebdc7e116c4e8604993e763a8d8, type: 3}
   m_PrefabInstance: {fileID: 968612197}
   m_PrefabAsset: {fileID: 0}
+--- !u!156049354 &968612200 stripped
+Grid:
+  m_CorrespondingSourceObject: {fileID: 6179197838888244312, guid: 0e86bebdc7e116c4e8604993e763a8d8, type: 3}
+  m_PrefabInstance: {fileID: 968612197}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1024178098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18548,8 +18605,13 @@ MonoBehaviour:
     TypeName: TandC.RpgAdventure.Bootstrap.BootstrapScope
   autoRun: 1
   autoInjectGameObjects: []
-  _tileMap: {fileID: 0}
-  _tileMapView: {fileID: 0}
+  _tilemapPrefab: {fileID: 4172130303312802861, guid: 2df23cc9e81f43b4d97255599272cb77, type: 3}
+  _tilemapView: {fileID: 1501837976}
+  _fogOfWar: {fileID: 279630520}
+  _grid: {fileID: 968612200}
+  _levelConfig: {fileID: 11400000, guid: 307bda0dd7bf0674dbb8207a3681bf4f, type: 2}
+  _structureConfig: {fileID: 11400000, guid: f102c493d04963e4da854bce8e067d13, type: 2}
+  _playerPrefab: {fileID: 6700901524588227694, guid: 9f1db0eeb13e6fb43ab4e41284350c7a, type: 3}
 --- !u!1001 &1228023184
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52666,7 +52728,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1501837975}
-  - component: {fileID: 1501837977}
   - component: {fileID: 1501837976}
   m_Layer: 0
   m_Name: TilemapView
@@ -52702,32 +52763,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd5bfb903d9e99b40bb6b7d5cb27981d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tilemap: {fileID: 968612198}
   _placeholderPrefab: {fileID: 3376217348579541328, guid: 86f374617d71e7a4ab2635ecb1237d5f, type: 3}
   _playerPrefab: {fileID: 6700901524588227694, guid: 9f1db0eeb13e6fb43ab4e41284350c7a, type: 3}
-  _step: {x: 0, y: -1.25, z: 0}
-  _fogOfWar: {fileID: 1501837977}
   _structureTilemap: {fileID: 885071185}
-  _structureConfig: {fileID: 11400000, guid: f102c493d04963e4da854bce8e067d13, type: 2}
-  _dataService: {fileID: 1093123775}
   _structureParent: {fileID: 29013458}
---- !u!114 &1501837977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1501837973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f74543b564fb9e409f0b2ab8ee47489, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fogTilemap: {fileID: 640956227}
-  _fogTile: {fileID: 11400000, guid: cae05fe14c8d44e489a7264de2e984ee, type: 2}
-  _tilemap: {fileID: 968612198}
-  _fogStep: 1
-  _tilePosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1562868407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63674,6 +63713,7 @@ SceneRoots:
   - {fileID: 1093123774}
   - {fileID: 519420032}
   - {fileID: 1501837975}
+  - {fileID: 279630521}
   - {fileID: 526016003}
   - {fileID: 1985041019}
   - {fileID: 1228023184}

@@ -7,8 +7,9 @@ using TandC.RpgAdventure.Settings;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using VContainer;
 
-namespace TandC.RpgAdventure.Core.HexGrid
+namespace TandC.RpgAdventure.Core.Map
 {
     public class TilemapViewModel : ILoadUnit
     {
@@ -17,44 +18,31 @@ namespace TandC.RpgAdventure.Core.HexGrid
         public TileModel CurrentCentralTile { get; private set; }
         private Tilemap _tilemap;
 
-        private DataService _dataService;//Inject
+        [Inject] private DataService _dataService;
 
         private StructureConfig _structureConfig;
 
-        public TilemapViewModel(Tilemap tilemap, DataService dataService, StructureConfig structureConfig) 
+        public TilemapViewModel(StructureConfig structureConfig) 
         {
-            _tilemap = tilemap;
-            _dataService = dataService;
             _structureConfig = structureConfig;
-            LoadTileMapViewModel();
         }
 
-        public void LoadTileMapViewModel() 
+        public void SetTilemap(Tilemap tilemap) 
         {
-            if (AppConstants.DEBUG_ENABLE)
-            {
-                if (_dataService.MapData.HasSaveData())
-                {
-                    LoadWorldState();
-                }
-                else
-                {
-                    InitializeTiles();
-                }
-            }
+            _tilemap = tilemap;
         }
 
         public async UniTask Load()
         {
-            //if (_dataService.MapData.HasSaveData())
-            //{
-            //    LoadWorldState();
-            //}
-            //else
-            //{
-            //    InitializeTiles();
-            //    await UniTask.CompletedTask;
-            //}
+            if (_dataService.MapData.HasSaveData())
+            {
+                LoadWorldState();
+            }
+            else
+            {
+                InitializeTiles();
+            }
+            await UniTask.CompletedTask;
         }
 
         public void LoadWorldState()

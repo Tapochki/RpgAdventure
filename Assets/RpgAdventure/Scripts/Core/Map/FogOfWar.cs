@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using VContainer;
 
-namespace TandC.RpgAdventure.Core.HexGrid
+namespace TandC.RpgAdventure.Core.Map
 {
     public class FogOfWar : MonoBehaviour
     {
@@ -12,9 +13,7 @@ namespace TandC.RpgAdventure.Core.HexGrid
 
         [SerializeField] private int _fogStep;
 
-        [SerializeField] private Vector3Int _tilePosition;
-
-        private TilemapViewModel _tilemapViewModel;
+        [Inject] private TilemapViewModel _tilemapViewModel;
 
         public void SetTileViewModel(TilemapViewModel tilemapViewModel) 
         {

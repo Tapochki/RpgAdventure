@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace TandC.RpgAdventure.Services
 {
-    public class DataService : MonoBehaviour
+    public class DataService : ILoadUnit
     {
         public event Action OnCacheLoadedEvent;
 
@@ -20,17 +21,13 @@ namespace TandC.RpgAdventure.Services
         public PurchaseData PurchaseData { get; private set; }
         public MapData MapData { get; private set; }
 
-        private void Construct()
-        {
-            
-        }
-
-        public void Awake()
+        public async UniTask Load()
         {
             Initialize();
+            await UniTask.CompletedTask;
         }
 
-        public void Initialize()
+        private void Initialize()
         {
             FillCacheDataPathes();
 
@@ -40,6 +37,7 @@ namespace TandC.RpgAdventure.Services
             }
 
             StartLoadCache();
+
         }
 
         private void StartLoadCache()

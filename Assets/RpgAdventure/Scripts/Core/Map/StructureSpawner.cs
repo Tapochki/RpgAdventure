@@ -1,78 +1,82 @@
 using System.Collections.Generic;
 using System.Linq;
 using TandC.RpgAdventure.Config;
-using TandC.RpgAdventure.Core.HexGrid;
+using TandC.RpgAdventure.Core.Map;
 using TandC.RpgAdventure.Settings;
 using UnityEngine;
 
-public class StructureSpawner
+namespace TandC.RpgAdventure.Core.Map 
 {
-    private readonly TilemapViewModel _tilemapViewModel;
-    private readonly StructureConfig _config;
-    private readonly List<Vector3Int> _spawnedPositions = new List<Vector3Int>();
-
-    public StructureSpawner(TilemapViewModel tilemapViewModel, StructureConfig config)
+    public class StructureSpawner
     {
-        _tilemapViewModel = tilemapViewModel;
-        _config = config;
-    }
+        private readonly TilemapViewModel _tilemapViewModel;
+        private readonly StructureConfig _config;
+        private readonly List<Vector3Int> _spawnedPositions = new List<Vector3Int>();
 
-    public void SpawnStructures()
-    {
-        SpawnStructure(StructureTileType.City, _config.NumberOfCities);
-        Debug.LogError("Spawn");
-        //SpawnStructure(StructureTileType.Village, _config.NumberOfVillages);
-
-        //SpawnStructure(StructureTileType.Tavern, _config.NumberOfTaverns);
-
-        //SpawnStructure(StructureTileType.Cave, _config.NumberOfCaves);
-
-        //SpawnStructure(StructureTileType.Portal, _config.NumberOfPortals);
-    }
-
-    private void SpawnStructure(StructureTileType structureType, int count)
-    {
-        var eligibleTiles = _tilemapViewModel.Tiles
-            .Where(t => t.Type == TileType.Land || t.Type == TileType.Sand)
-            .ToList();
-        Debug.LogError(eligibleTiles.Count);
-        for (int i = 0; i < count; i++)
+        public StructureSpawner(TilemapViewModel tilemapViewModel, StructureConfig config)
         {
-            if (eligibleTiles.Count == 0) break;
-
-            TileModel selectedTile = null;
-
-            for (int attempt = 0; attempt < 100; attempt++)
-            {
-                var randomTile = eligibleTiles[Random.Range(0, eligibleTiles.Count)];
-
-                if (IsTooCloseToOtherStructures(randomTile.Position)) continue;
-
-                selectedTile = randomTile;
-                break;
-            }
-
-            if (selectedTile == null)
-            {
-                Debug.LogWarning($"Failed to place structure {structureType}, not enough space!");
-                continue;
-            }
-
-            _spawnedPositions.Add(selectedTile.Position);
-            Debug.LogError(selectedTile.Position);
-            selectedTile.ChangeStructureType(structureType);
+            _tilemapViewModel = tilemapViewModel;
+            _config = config;
         }
-    }
 
-    private bool IsTooCloseToOtherStructures(Vector3Int tilePosition)
-    {
-        foreach (var spawnedPosition in _spawnedPositions)
+        public void SpawnStructures()
         {
-            if (Vector3Int.Distance(tilePosition, spawnedPosition) < _config.MinDistanceBetweenStructures)
+            SpawnStructure(StructureTileType.City, _config.NumberOfCities);
+
+            //SpawnStructure(StructureTileType.Village, _config.NumberOfVillages);
+
+            //SpawnStructure(StructureTileType.Tavern, _config.NumberOfTaverns);
+
+            //SpawnStructure(StructureTileType.Cave, _config.NumberOfCaves);
+
+            //SpawnStructure(StructureTileType.Portal, _config.NumberOfPortals);
+        }
+
+        private void SpawnStructure(StructureTileType structureType, int count)
+        {
+            var eligibleTiles = _tilemapViewModel.Tiles
+                .Where(t => t.Type == TileType.Land || t.Type == TileType.Sand)
+                .ToList();
+
+            for (int i = 0; i < count; i++)
             {
-                return true;
+                if (eligibleTiles.Count == 0) break;
+
+                TileModel selectedTile = null;
+
+                for (int attempt = 0; attempt < 100; attempt++)
+                {
+                    var randomTile = eligibleTiles[Random.Range(0, eligibleTiles.Count)];
+
+                    if (IsTooCloseToOtherStructures(randomTile.Position)) continue;
+
+                    selectedTile = randomTile;
+                    break;
+                }
+
+                if (selectedTile == null)
+                {
+                    Debug.LogWarning($"Failed to place structure {structureType}, not enough space!");
+                    continue;
+                }
+
+                _spawnedPositions.Add(selectedTile.Position);
+
+                selectedTile.ChangeStructureType(structureType);
             }
         }
-        return false;
+
+        private bool IsTooCloseToOtherStructures(Vector3Int tilePosition)
+        {
+            foreach (var spawnedPosition in _spawnedPositions)
+            {
+                if (Vector3Int.Distance(tilePosition, spawnedPosition) < _config.MinDistanceBetweenStructures)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
+

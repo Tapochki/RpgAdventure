@@ -20,7 +20,7 @@ namespace TandC.RpgAdventure.Loading
 
         public async void Start()
         {
-            await _loadingService.BeginLoading(new FooLoadingUnit(3));
+            await _loadingService.BeginLoading(new FooLoadingUnit(1));
             _sceneManager.LoadScene(AppConstants.Scenes.Meta).Forget();
         }
     }

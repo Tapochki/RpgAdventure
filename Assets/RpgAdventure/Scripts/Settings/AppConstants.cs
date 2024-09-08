@@ -21,6 +21,8 @@ namespace TandC.RpgAdventure.Settings
 
         public static bool LANGUAGE_CAN_CHANGE_IN_GAME = true;
 
+        public static Vector3 TILE_STEP = new Vector3(0, -1.25f);
+
         public static class Scenes
         {
             public static readonly int Bootstrap = SceneUtility.GetBuildIndexByScenePath("0.Bootstrap");

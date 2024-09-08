@@ -18,6 +18,16 @@ namespace TandC.RpgAdventure.Settings
         Portal
     }
 
+    public enum RaceType 
+    {
+        Human
+    }
+
+    public enum ClassType 
+    {
+
+    }
+
     public enum Languages // value of enum you can see in SystemLanguage class
     {
         Ukrainian = 38,
