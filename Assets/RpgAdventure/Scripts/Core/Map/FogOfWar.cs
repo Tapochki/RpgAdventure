@@ -48,7 +48,6 @@ namespace TandC.RpgAdventure.Core.Map
 
         public void OpenFogPosition(Vector3Int tilePosition) 
         {
-            Debug.LogError($"{tilePosition} {_fogTilemap.GetTile(tilePosition)}");
             _fogTilemap.SetTile(tilePosition, null);
         }
     }
