@@ -49,8 +49,9 @@ namespace TandC.RpgAdventure.Core.Map
 
         public void UpdateFog(Vector3Int playerPosition)
         {
-            Vector3Int[] directions = _tilemapViewModel.GetDirections();
-            for (int i = 0; i < directions.Length; i++)
+            List<Vector3Int> directions = new List<Vector3Int>() { new Vector3Int(0, 0) };
+            directions.AddRange(_tilemapViewModel.GetDirections());
+            for (int i = 0; i < directions.Count; i++)
             {
                 Vector3Int openedPosition = playerPosition + directions[i];
                 _fogTilemap.SetTile(openedPosition, null);
