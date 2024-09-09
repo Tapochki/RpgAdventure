@@ -9,7 +9,7 @@ namespace TandC.RpgAdventure.Core.Map
     public class FogOfWar : MonoBehaviour
     {
         [SerializeField] private Tilemap _fogTilemap;
-        [SerializeField] private Tile _fogTile;
+        [SerializeField] private AnimatedTile _fogTile;
 
         [SerializeField] private Tilemap _tilemap;
 

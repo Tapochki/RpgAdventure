@@ -767,7 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fogTilemap: {fileID: 640956227}
-  _fogTile: {fileID: 11400000, guid: cae05fe14c8d44e489a7264de2e984ee, type: 2}
+  _fogTile: {fileID: 11400000, guid: a342c315bbc4d2943aa902a2c011e1ea, type: 2}
   _tilemap: {fileID: 968612198}
   _fogStep: 0
 --- !u!4 &279630521
