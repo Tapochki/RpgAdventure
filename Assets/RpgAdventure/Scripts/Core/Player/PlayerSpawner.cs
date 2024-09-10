@@ -20,6 +20,7 @@ namespace TandC.RpgAdventure.Core.Player
 
         public GameObject Player { get; private set; }
         private Animator _animator;
+        private SpriteRenderer _model;
 
         public void SetPlayerPrefab(GameObject playerPrefab)
         {
@@ -30,7 +31,6 @@ namespace TandC.RpgAdventure.Core.Player
         {
             _tilemap = tilemap;
             _step = AppConstants.TILE_STEP;
-            _animator = Player.GetComponentInChildren<Animator>();
         }
 
         public void RespawnPlayer()
@@ -58,6 +58,8 @@ namespace TandC.RpgAdventure.Core.Player
         {
             var worldPosition = _tilemap.CellToWorld(tileModel.Position) + _step;
             Player = MonoBehaviour.Instantiate(_playerPrefab, worldPosition, Quaternion.identity);
+            _model =  Player.GetComponentInChildren<SpriteRenderer>();
+            _animator = _model.GetComponent<Animator>();
             if (isFirstCreate)
             {
                 _fogOfWar.UpdateFog(tileModel.Position);
@@ -67,19 +69,24 @@ namespace TandC.RpgAdventure.Core.Player
         public void MovePlayerToTile(TileModel tile)
         {
             var worldPosition = _tilemap.CellToWorld(tile.Position) + _step;
-            Player.transform.DOMove(worldPosition, 1);
+            Player.transform.DOMove(worldPosition, 0.6f);
             _animator.SetTrigger("Walk");
 
-            Observable.Timer(TimeSpan.FromSeconds(1))
+            _model.flipX = worldPosition.x < Player.transform.position.x;
+
+            Observable.Timer(TimeSpan.FromSeconds(0.6))
                     .Subscribe(_ =>
             {
                 _animator.SetTrigger("Idle");
-                _viewModel.SetCurrentCentralTile(tile.Position);
-                _fogOfWar.UpdateFog(tile.Position);
             }).AddTo(Player);
 
-            //Player.transform.position = worldPosition;
+            UpdateTileAndFog(tile.Position);
+        }
 
+        private void UpdateTileAndFog(Vector3Int position)
+        {
+            _viewModel.SetCurrentCentralTile(position);
+            _fogOfWar.UpdateFog(position);
         }
     }
 }
