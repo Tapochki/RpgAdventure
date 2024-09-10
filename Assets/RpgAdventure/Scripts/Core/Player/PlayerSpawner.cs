@@ -1,5 +1,8 @@
+using DG.Tweening;
+using System;
 using TandC.RpgAdventure.Core.Map;
 using TandC.RpgAdventure.Settings;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;
@@ -16,21 +19,23 @@ namespace TandC.RpgAdventure.Core.Player
         [Inject] private readonly TilemapViewModel _viewModel;
 
         public GameObject Player { get; private set; }
+        private Animator _animator;
 
-        public void SetPlayerPrefab(GameObject playerPrefab) 
+        public void SetPlayerPrefab(GameObject playerPrefab)
         {
             _playerPrefab = playerPrefab;
         }
 
-        public void Initialize(Tilemap tilemap) 
+        public void Initialize(Tilemap tilemap)
         {
             _tilemap = tilemap;
             _step = AppConstants.TILE_STEP;
+            _animator = Player.GetComponentInChildren<Animator>();
         }
 
-        public void RespawnPlayer() 
+        public void RespawnPlayer()
         {
-            Object.Destroy(Player);
+            MonoBehaviour.Destroy(Player);
             SpawnPlayer();
         }
 
@@ -49,11 +54,11 @@ namespace TandC.RpgAdventure.Core.Player
             }
         }
 
-        public void CreatePlayer(TileModel tileModel, bool isFirstCreate) 
+        public void CreatePlayer(TileModel tileModel, bool isFirstCreate)
         {
             var worldPosition = _tilemap.CellToWorld(tileModel.Position) + _step;
-            Player = Object.Instantiate(_playerPrefab, worldPosition, Quaternion.identity);
-            if (isFirstCreate) 
+            Player = MonoBehaviour.Instantiate(_playerPrefab, worldPosition, Quaternion.identity);
+            if (isFirstCreate)
             {
                 _fogOfWar.UpdateFog(tileModel.Position);
             }
@@ -62,10 +67,19 @@ namespace TandC.RpgAdventure.Core.Player
         public void MovePlayerToTile(TileModel tile)
         {
             var worldPosition = _tilemap.CellToWorld(tile.Position) + _step;
-            Player.transform.position = worldPosition;
-            _viewModel.SetCurrentCentralTile(tile.Position);
-            _fogOfWar.UpdateFog(tile.Position);
+            Player.transform.DOMove(worldPosition, 1);
+            _animator.SetTrigger("Walk");
+
+            Observable.Timer(TimeSpan.FromSeconds(1))
+                    .Subscribe(_ =>
+            {
+                _animator.SetTrigger("Idle");
+                _viewModel.SetCurrentCentralTile(tile.Position);
+                _fogOfWar.UpdateFog(tile.Position);
+            }).AddTo(Player);
+
+            //Player.transform.position = worldPosition;
+
         }
     }
 }
-
