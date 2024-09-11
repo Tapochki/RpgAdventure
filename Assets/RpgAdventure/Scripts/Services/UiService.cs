@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace TandC.RpgAdventure.Services 
 {
-    public class UiService
+    public class UIService : IUIService
     {
         private List<IUIPage> _uiPages;
         private List<IUIPopup> _uiPopups;
@@ -17,15 +17,6 @@ namespace TandC.RpgAdventure.Services
         public GameObject Canvas { get; set; }
 
         public Camera UICamera { get; set; }
-
-        public void Dispose()
-        {
-            foreach (var page in _uiPages)
-                page.Dispose();
-
-            foreach (var popup in _uiPopups)
-                popup.Dispose();
-        }
 
         public void Init()
         {
@@ -91,24 +82,6 @@ namespace TandC.RpgAdventure.Services
                 CurrentPopup.Show();
             else
                 CurrentPopup.Show(message);
-        }
-
-        public void ClosePopup()
-        {
-            if (CurrentPopup != null)
-            {
-                CurrentPopup.Hide();
-                CurrentPopup = null;
-            }
-        }
-
-        public void ClosePage()
-        {
-            if (CurrentPage != null)
-            {
-                CurrentPage.Hide();
-                CurrentPage = null;
-            }
         }
     }
 }

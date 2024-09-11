@@ -20,9 +20,12 @@ namespace TandC.RpgAdventure.Core
         private readonly LevelConfig _levelConfig;
         private readonly PlayerSpawner _playerSpawner;
         private readonly ClickDetector2D _clickDetector2D;
+        private readonly ICameraService _cameraService;
+        private readonly IUIService _uiService;
 
         public CoreFlow(LoadingService loadingService, SceneManager sceneManager, TilemapFactory tilemapFactory, PlayerFactory playerFactory,
-            TilemapViewModel tilemapViewModel, TilemapView tilemapView, LevelConfig levelConfig, PlayerSpawner playerSpawner, ClickDetector2D clickDetector)
+            TilemapViewModel tilemapViewModel, TilemapView tilemapView, LevelConfig levelConfig, PlayerSpawner playerSpawner, ClickDetector2D clickDetector, 
+            ICameraService cameraService, IUIService uiService)
         {
             _loadingService = loadingService;
             _sceneManager = sceneManager;
@@ -33,10 +36,14 @@ namespace TandC.RpgAdventure.Core
             _levelConfig = levelConfig;
             _playerSpawner = playerSpawner;
             _clickDetector2D = clickDetector;
+            _cameraService = cameraService;
+            _uiService = uiService;
         }
 
         public async void Start()
         {
+            RegisterUi();
+
             int levelId = 0;
 
             if (!_levelConfig.LevelExists(levelId))
@@ -60,7 +67,12 @@ namespace TandC.RpgAdventure.Core
 
             _playerSpawner.Initialize(tilemapInstance); //TODO make player object factory
             _tilemapView.Initialize();
+            _cameraService.Init(_playerSpawner.Player.transform);
+        }
 
+        public void RegisterUi() 
+        {
+            
         }
     }
 }

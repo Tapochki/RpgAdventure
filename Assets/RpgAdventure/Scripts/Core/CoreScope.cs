@@ -28,6 +28,8 @@ namespace TandC.RpgAdventure.Core
             builder.RegisterInstance(_levelConfig).AsSelf();
             builder.RegisterInstance(_structureConfig).AsSelf();
 
+            builder.Register<CameraService>(Lifetime.Scoped).As<ICameraService>();
+            builder.Register<UIService>(Lifetime.Scoped).As<IUIService>();
             builder.Register<PlayerSpawner>(Lifetime.Scoped);
             builder.Register<ClickDetector2D>(Lifetime.Scoped);
             builder.Register<LoadingService>(Lifetime.Scoped);
