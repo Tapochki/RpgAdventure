@@ -11,11 +11,14 @@ namespace TandC.RpgAdventure.Settings
     public enum StructureTileType 
     {
         None,
-        Tavern,
-        Village,
         City,
-        Cave,
-        Portal
+        Volcano,
+        UniqueQuestionMark,
+        UniqueExclamationMark,
+        GoldQuestionMark,
+        GoldExclamationMark,
+        DefaultQuestionMark,
+        DefaultExclamationMark,
     }
 
     public enum RaceType 

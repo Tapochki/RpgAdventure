@@ -70,16 +70,15 @@ namespace TandC.RpgAdventure.Core.Map
 
         private void CreateStructure(TileModel tileModel) 
         {
-            Sprite structureSprite = _structureConfig.GetStructureSprite(tileModel.StructureTileType);
-            if (structureSprite != null)
+            GameObject structurePrefab = _structureConfig.GetStructureGameobject(tileModel.StructureTileType);
+            if (structurePrefab != null)
             {
-                GameObject structurePrefab = _structureConfig.GetStructurePrefab(tileModel.StructureTileType);
                 GameObject structureObject = Instantiate(structurePrefab, _structureParent);
                 SpriteRenderer spriteRenderer = structurePrefab.GetComponentInChildren<SpriteRenderer>();
 
                 structureObject.transform.position = _tilemap.CellToWorld(tileModel.Position) + _step;
 
-                spriteRenderer.sprite = structureSprite;
+                //spriteRenderer.sprite = structureSprite;
             }
         }
 

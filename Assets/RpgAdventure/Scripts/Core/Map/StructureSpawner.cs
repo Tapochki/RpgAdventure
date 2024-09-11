@@ -22,11 +22,11 @@ namespace TandC.RpgAdventure.Core.Map
         {
             SpawnStructure(StructureTileType.City, _config.NumberOfCities);
 
-            //SpawnStructure(StructureTileType.Village, _config.NumberOfVillages);
+            SpawnStructure(StructureTileType.Volcano, _config.NumberOfVolcano);
 
-            //SpawnStructure(StructureTileType.Tavern, _config.NumberOfTaverns);
+            SpawnStructure(StructureTileType.UniqueQuestionMark, _config.NumberOfUniqueEvent);
 
-            //SpawnStructure(StructureTileType.Cave, _config.NumberOfCaves);
+            SpawnStructure(StructureTileType.GoldQuestionMark, _config.NumberOfGoldEvent);
 
             //SpawnStructure(StructureTileType.Portal, _config.NumberOfPortals);
         }
