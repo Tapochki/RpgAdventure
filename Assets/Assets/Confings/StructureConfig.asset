@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214ccd9b51534a747a3b57c03113e9bb, type: 3}
   m_Name: StructureConfig
   m_EditorClassIdentifier: 
-  _numberOfCities: 1
-  _numberOfVillages: 1
-  _numberOfTaverns: 1
-  _numberOfCaves: 1
-  _numberOfPortal: 1
+  _numberOfCities: 3
+  _numberOfVolcano: 2
+  _numberOfUniqueQuestionEvent: 3
+  _numberOfGoldQuestionEvent: 6
   _minDistanceBetweenStructures: 3
-  _citySprite: {fileID: 21300000, guid: c2aa8bf49e2d33c468888303772eae7b, type: 3}
-  _villageSprite: {fileID: 0}
-  _tavernSprite: {fileID: 0}
-  _caveSprite: {fileID: 0}
-  _portalSprite: {fileID: 0}
-  _structurePrefab: {fileID: 6700901524588227694, guid: 4cff590d69cfd4643b33fa01990415c3, type: 3}
+  _cityPrefab: {fileID: 6700901524588227694, guid: 4cff590d69cfd4643b33fa01990415c3, type: 3}
+  _volcanoPrefab: {fileID: 6700901524588227694, guid: f6686187033e12b498deaabd60b42386, type: 3}
+  _uniqueEventQuestionPrefab: {fileID: 6700901524588227694, guid: 35c32c9a1319af14b9dd836ce365f0ce, type: 3}
+  _uniqueEventExclamationPrefab: {fileID: 6700901524588227694, guid: cef040007c94e0949856922dca3bfa39, type: 3}
+  _goldEventQuestionPrefab: {fileID: 6700901524588227694, guid: b640585ae6da83842b8ee13126e0017e, type: 3}
+  _goldEventExclamationPrefab: {fileID: 6700901524588227694, guid: c471a194cf31e90468a91a75f493a35a, type: 3}
+  _defaultEventQuestionPrefab: {fileID: 6700901524588227694, guid: b8579db193d88cd4080623757cfdbc1d, type: 3}
+  _defaultEventExclamationPrefab: {fileID: 6700901524588227694, guid: cbc6dea6b921c784bb9c35baf8860ddf, type: 3}

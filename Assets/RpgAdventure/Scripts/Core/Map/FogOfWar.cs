@@ -13,7 +13,7 @@ namespace TandC.RpgAdventure.Core.Map
 
         [SerializeField] private Tilemap _tilemap;
 
-        [SerializeField] private int _fogStep;
+        [SerializeField] private int _playerVision;
 
         [Inject] private TilemapViewModel _tilemapViewModel;
 
@@ -36,9 +36,9 @@ namespace TandC.RpgAdventure.Core.Map
         }
         //public void UpdateFog(Vector3Int playerPosition) Old
         //{
-        //    for (int i = -_fogStep; i <= _fogStep; i++)
+        //    for (int i = -_playerVision; i <= _playerVision; i++)
         //    {
-        //        for (int j = -_fogStep; j <= _fogStep; j++)
+        //        for (int j = -_playerVision; j <= _playerVision; j++)
         //        {
         //            Vector3Int openedPosition = playerPosition + new Vector3Int(i, j);
         //            _fogTilemap.SetTile(openedPosition, null);
@@ -49,8 +49,16 @@ namespace TandC.RpgAdventure.Core.Map
 
         public void UpdateFog(Vector3Int playerPosition)
         {
+            if(_playerVision == 0) 
+            {
+                _fogTilemap.SetTile(playerPosition, null);
+                _tilemapViewModel.SetTileOpen(playerPosition);
+                return;
+            }
             List<Vector3Int> directions = new List<Vector3Int>() { new Vector3Int(0, 0) };
+
             directions.AddRange(_tilemapViewModel.GetDirections());
+
             for (int i = 0; i < directions.Count; i++)
             {
                 Vector3Int openedPosition = playerPosition + directions[i];
