@@ -135,7 +135,7 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
             }
 
             float chance = UnityEngine.Random.Range(0f, 1f);
-            Debug.LogError($"Roll: {chance} MinimalChange: {_spawnChance}");
+            Debug.Log($"Roll: {chance} MinimalChange: {_spawnChance}");
             if (chance <= _spawnChance)
             {
                 var randomTile = openedPosition[UnityEngine.Random.Range(0, eligibleTiles.Count)];
