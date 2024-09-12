@@ -151,14 +151,14 @@ namespace TandC.RpgAdventure.Core.Map
             return spawnTile;
         }
 
-        public List<TileModel> GetAccessibleTiles() 
+        public List<TileModel> FilterAccessibleTiles(List<TileModel> tiles)
         {
-            return Tiles.Where(t => t.Type == TileType.Land || t.Type == TileType.Sand).ToList();
+            return tiles.Where(tile => tile.Type == TileType.Land || tile.Type == TileType.Sand).ToList();
         }
 
         public TileModel GetRandomTile()
         {
-            var spawnableTiles = GetAccessibleTiles();
+            var spawnableTiles = FilterAccessibleTiles(Tiles);
 
             if (spawnableTiles.Count == 0)
             {
@@ -304,7 +304,8 @@ namespace TandC.RpgAdventure.Core.Map
 
         private List<TileModel> GetTilesInRadius(Vector3Int center, int radius)
         {
-            return GetAccessibleTiles().Where(tile => GetHexDistance(center, tile.Position) <= radius).ToList();
+            List<TileModel> accessibleTiles = FilterAccessibleTiles(Tiles);
+            return accessibleTiles.Where(tile => GetHexDistance(center, tile.Position) <= radius).ToList();
         }
 
         public List<TileModel> GetTilesByPositions(List<Vector3Int> positions)

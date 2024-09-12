@@ -38,7 +38,7 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
 
         public void UpLayer() 
         {
-            _spriteRenderer.sortingOrder = 30;
+            _spriteRenderer.sortingOrder = 19;
         }
 
         private void HandlePlayerInteraction()

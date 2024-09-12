@@ -13,8 +13,6 @@ namespace TandC.RpgAdventure.Core.Map
     public class TilemapView : MonoBehaviour
     {
         [SerializeField] private GameObject _placeholderPrefab;
-        [SerializeField] private GameObject _playerPrefab;
-        [SerializeField] private Tilemap _structureTilemap;
 
         [Inject] private ClickDetector2D _clickDetector;
         [Inject] private FogOfWar _fogOfWar;
@@ -30,8 +28,6 @@ namespace TandC.RpgAdventure.Core.Map
 
         private List<GameObject> _placeholders = new List<GameObject>();
         private List<GameObject> _currentPlaceholders = new List<GameObject>();
-
-
 
         public void SetTileViewModel(TilemapViewModel tilemapViewModel, Tilemap currentTileMap)
         {

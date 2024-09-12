@@ -123,7 +123,9 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
 
         public void TryCreateNarrativeMark(List<TileModel> openedPosition)
         {
-            var eligibleTiles = openedPosition.Where(tile => !IsTooCloseToOtherStructures(tile.Position)).ToList();
+            List<TileModel> eligibleTiles = _tilemapViewModel.FilterAccessibleTiles(
+                openedPosition.Where(tile => !IsTooCloseToOtherStructures(tile.Position)).ToList()
+            );
 
             if (eligibleTiles.Count == 0)
             {
@@ -165,7 +167,7 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
 
         private TileModel GetRandomEligibleTile()
         {
-            var eligibleTiles = _tilemapViewModel.GetAccessibleTiles();
+            var eligibleTiles = _tilemapViewModel.FilterAccessibleTiles(_tilemapViewModel.Tiles);
 
             for (int attempt = 0; attempt < 100; attempt++)
             {
