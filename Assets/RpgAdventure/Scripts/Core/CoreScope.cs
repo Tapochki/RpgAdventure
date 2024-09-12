@@ -1,5 +1,6 @@
 ﻿using TandC.RpgAdventure.Config;
 using TandC.RpgAdventure.Core.Map;
+using TandC.RpgAdventure.Core.Map.MapObject;
 using TandC.RpgAdventure.Core.Player;
 using TandC.RpgAdventure.Services;
 using UnityEngine;
@@ -30,10 +31,12 @@ namespace TandC.RpgAdventure.Core
 
             builder.Register<CameraService>(Lifetime.Scoped).As<ICameraService>();
             builder.Register<UIService>(Lifetime.Scoped).As<IUIService>();
-            builder.Register<PlayerSpawner>(Lifetime.Scoped);
+            builder.Register<PlayerController>(Lifetime.Scoped);
             builder.Register<ClickDetector2D>(Lifetime.Scoped);
             builder.Register<LoadingService>(Lifetime.Scoped);
             builder.Register<TilemapViewModel>(Lifetime.Scoped);
+            builder.Register<MapObjectViewModel>(Lifetime.Scoped);
+            builder.Register<MapObjectView>(Lifetime.Scoped);
 
             builder.RegisterEntryPoint<CoreFlow>();
         }

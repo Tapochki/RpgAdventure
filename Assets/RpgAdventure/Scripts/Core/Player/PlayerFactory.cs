@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TandC.RpgAdventure.Core.Player 
 {
-    public class PlayerFactory : MonoBehaviour //Chage to normal factory
+    public class PlayerFactory //Chage to normal factory
     {
         private readonly GameObject _playerPrefab;
 

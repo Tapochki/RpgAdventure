@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TandC.RpgAdventure.Core.Map.MapObject;
 using UnityEngine;
 
 namespace TandC.RpgAdventure.Settings
@@ -40,7 +41,7 @@ namespace TandC.RpgAdventure.Settings
     {
         public Vector3Int Position;
         public TileType Type;
-        public StructureTileType StructureType;
+        public MapObjectModel MapObject;
         public bool IsOpen;
     }
 }

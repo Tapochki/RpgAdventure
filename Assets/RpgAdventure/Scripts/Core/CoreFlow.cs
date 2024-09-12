@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using TandC.RpgAdventure.Core.Player;
 using TandC.RpgAdventure.Settings;
+using TandC.RpgAdventure.Core.Map.MapObject;
 
 namespace TandC.RpgAdventure.Core
 {
@@ -18,14 +19,18 @@ namespace TandC.RpgAdventure.Core
         private readonly TilemapViewModel _tilemapViewModel;
         private readonly TilemapView _tilemapView;
         private readonly LevelConfig _levelConfig;
-        private readonly PlayerSpawner _playerSpawner;
+        private readonly PlayerController _playerController;
         private readonly ClickDetector2D _clickDetector2D;
         private readonly ICameraService _cameraService;
         private readonly IUIService _uiService;
+        private readonly MapObjectView _mapObjectView;
+        private readonly MapObjectViewModel _mapObjectViewModel;
 
-        public CoreFlow(LoadingService loadingService, SceneManager sceneManager, TilemapFactory tilemapFactory, PlayerFactory playerFactory,
-            TilemapViewModel tilemapViewModel, TilemapView tilemapView, LevelConfig levelConfig, PlayerSpawner playerSpawner, ClickDetector2D clickDetector, 
-            ICameraService cameraService, IUIService uiService)
+        public CoreFlow(LoadingService loadingService, SceneManager sceneManager, IUIService uiService,
+            TilemapFactory tilemapFactory, TilemapViewModel tilemapViewModel, TilemapView tilemapView,
+             PlayerFactory playerFactory, LevelConfig levelConfig, PlayerController playerSpawner,
+             MapObjectView mapObjectView, MapObjectViewModel mapObjectViewModel,
+            ICameraService cameraService, ClickDetector2D clickDetector)
         {
             _loadingService = loadingService;
             _sceneManager = sceneManager;
@@ -34,10 +39,12 @@ namespace TandC.RpgAdventure.Core
             _tilemapViewModel = tilemapViewModel;
             _tilemapView = tilemapView;
             _levelConfig = levelConfig;
-            _playerSpawner = playerSpawner;
+            _playerController = playerSpawner;
             _clickDetector2D = clickDetector;
             _cameraService = cameraService;
             _uiService = uiService;
+            _mapObjectView = mapObjectView;
+            _mapObjectViewModel = mapObjectViewModel;
         }
 
         public async void Start()
@@ -52,27 +59,47 @@ namespace TandC.RpgAdventure.Core
                 return;
             }
 
-            var tilemap = _levelConfig.GetRandomTileMapForLevel(levelId);
+            Tilemap tilemapInstance = CreateTileMap(levelId);
 
-            Tilemap tilemapInstance = _tilemapFactory.CreateTilemap(tilemap);
-            _tilemapViewModel.SetTilemap(tilemapInstance);
-            _tilemapView.SetTileViewModel(_tilemapViewModel, tilemapInstance);
-
-            var playerRace = RaceType.Human;
-            var playerPrefab = _playerFactory.CreatePlayer(playerRace);
-            _playerSpawner.SetPlayerPrefab(playerPrefab);
+            CreatePlayer();
+            _mapObjectView.Initialize(tilemapInstance);
 
             await _loadingService.BeginLoading(_tilemapViewModel);
             await _loadingService.BeginLoading(_clickDetector2D);
+            await _loadingService.BeginLoading(_mapObjectViewModel);
 
-            _playerSpawner.Initialize(tilemapInstance); //TODO make player object factory
+            _playerController.Initialize(tilemapInstance); //TODO make player object factory
             _tilemapView.Initialize();
-            _cameraService.Init(_playerSpawner.Player.transform);
+            _cameraService.Init(_playerController.Player.transform);
+
+            RegisterSubscribe();
         }
 
         public void RegisterUi() 
         {
             
+        }
+
+        public Tilemap CreateTileMap(int levelId) 
+        {
+            var tilemap = _levelConfig.GetRandomTileMapForLevel(levelId);
+            Tilemap tilemapInstance = _tilemapFactory.CreateTilemap(tilemap);
+            _tilemapViewModel.SetTilemap(tilemapInstance);
+            _tilemapView.SetTileViewModel(_tilemapViewModel, tilemapInstance);
+            return tilemapInstance;
+        }
+
+        public void CreatePlayer() 
+        {
+            var playerRace = RaceType.Human;
+            var playerPrefab = _playerFactory.CreatePlayer(playerRace);
+            _playerController.SetPlayerPrefab(playerPrefab);
+        }
+
+        public void RegisterSubscribe() 
+        {
+            _playerController.OnPlayerMoveEnd += _tilemapView.HandleMoveEnd;
+            _playerController.OnPlayerMoveStart += _tilemapView.HandleMoveStart;
         }
     }
 }

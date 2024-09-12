@@ -1,27 +1,27 @@
 using System.Collections.Generic;
 using TandC.RpgAdventure.Config;
+using TandC.RpgAdventure.Core.Map.MapObject;
 using TandC.RpgAdventure.Core.Player;
 using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Settings;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using VContainer;
 
 namespace TandC.RpgAdventure.Core.Map
 {
     public class TilemapView : MonoBehaviour
     {
-
         [SerializeField] private GameObject _placeholderPrefab;
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private Tilemap _structureTilemap;
-        [SerializeField] private Transform _structureParent;
 
         [Inject] private ClickDetector2D _clickDetector;
         [Inject] private FogOfWar _fogOfWar;
-        [Inject] private StructureConfig _structureConfig;
-        [Inject] private PlayerSpawner _playerSpawner;
+        [Inject] private MapObjectViewModel _mapObjectViewModel;
+        [Inject] private PlayerController _playerSpawner;
 
         private TilemapViewModel _viewModel;
 
@@ -30,6 +30,7 @@ namespace TandC.RpgAdventure.Core.Map
         private Vector3 _step;
 
         private List<GameObject> _placeholders = new List<GameObject>();
+        private List<GameObject> _currentPlaceholders = new List<GameObject>();
 
 
 
@@ -45,7 +46,9 @@ namespace TandC.RpgAdventure.Core.Map
             InitializeTiles();
             _fogOfWar.InitializeFog();
             _playerSpawner.SpawnPlayer(_viewModel.CurrentCentralTile);
-            UpdateTileVisibility();
+            List<TileModel> surroundingTiles = _viewModel.GetSurroundingTiles();
+            UpdateTileVisibility(surroundingTiles);
+            ShowHideCurrentPlaceHodlers(true);
             HandleClicks();
         }
 
@@ -54,7 +57,6 @@ namespace TandC.RpgAdventure.Core.Map
             foreach (var tile in _viewModel.Tiles)
             {
                 CreatePlaceHolders(tile);
-                CreateStructure(tile);
                 OpenFogOfWar(tile);
             }
         }
@@ -66,20 +68,6 @@ namespace TandC.RpgAdventure.Core.Map
             placeholder.name = $"Placeholder_{tileModel.Type}_{tileModel.Position}";
             placeholder.SetActive(false);
             _placeholders.Add(placeholder);
-        }
-
-        private void CreateStructure(TileModel tileModel) 
-        {
-            GameObject structurePrefab = _structureConfig.GetStructureGameobject(tileModel.StructureTileType);
-            if (structurePrefab != null)
-            {
-                GameObject structureObject = Instantiate(structurePrefab, _structureParent);
-                SpriteRenderer spriteRenderer = structurePrefab.GetComponentInChildren<SpriteRenderer>();
-
-                structureObject.transform.position = _tilemap.CellToWorld(tileModel.Position) + _step;
-
-                //spriteRenderer.sprite = structureSprite;
-            }
         }
 
         private void OpenFogOfWar(TileModel tileModel) 
@@ -106,27 +94,46 @@ namespace TandC.RpgAdventure.Core.Map
             if (clickedTile != null &&
                 (clickedTile.Type == TileType.Land || clickedTile.Type == TileType.Sand))
             {
-                _playerSpawner.MovePlayerToTile(clickedTile);
-                UpdateTileVisibility();
+                _viewModel.SetCurrentCentralTile(clickedTile.Position);             
+                _playerSpawner.MovePlayerToTile(clickedTile);              
             }
         }
 
-        public void UpdateTileVisibility()
+        public void HandleMoveStart() 
         {
+            ShowHideCurrentPlaceHodlers(false);
             List<TileModel> surroundingTiles = _viewModel.GetSurroundingTiles();
+            _mapObjectViewModel.TryCreateNarrativeMark(surroundingTiles);
+            _mapObjectViewModel.UpdateNarratives();
+            UpdateTileVisibility(surroundingTiles);
+        }
 
+        public void HandleMoveEnd() 
+        {
+            ShowHideCurrentPlaceHodlers(true);
+        }
+
+        public void UpdateTileVisibility(List<TileModel> surroundingTiles)
+        {
+           
+            _currentPlaceholders.Clear();
             foreach (var placeholder in _placeholders)
             {
                 Vector3Int placeholderPosition = _tilemap.WorldToCell(placeholder.transform.position - _step);
                 bool isVisible = surroundingTiles.Exists(t => t.Position == placeholderPosition);
-
-                SetPlaceholderVisible(placeholder, isVisible);
+                if (isVisible)
+                {
+                    _currentPlaceholders.Add(placeholder);
+                }
             }
         }
 
-        private void SetPlaceholderVisible(GameObject placeholder, bool visible)
+        private void ShowHideCurrentPlaceHodlers(bool value) 
         {
-            placeholder?.SetActive(visible);
+            foreach(var placeholder in _currentPlaceholders) 
+            {
+                placeholder?.SetActive(value);
+            }
         }
     }
 }

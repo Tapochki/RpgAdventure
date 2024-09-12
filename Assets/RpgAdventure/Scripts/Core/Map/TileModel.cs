@@ -1,5 +1,6 @@
 using TandC.RpgAdventure.Settings;
 using UnityEngine;
+using TandC.RpgAdventure.Core.Map.MapObject;
 
 namespace TandC.RpgAdventure.Core.Map
 {
@@ -7,20 +8,25 @@ namespace TandC.RpgAdventure.Core.Map
     {
         public Vector3Int Position { get; }
         public TileType Type { get; private set; }
-        public StructureTileType StructureTileType { get; private set; }
+        public MapObjectModel MapObject { get; private set; }
         public bool IsOpen { get; private set; }
 
-        public TileModel(Vector3Int position, TileType type, bool isOpen, StructureTileType structureTileType = StructureTileType.None)
+        public TileModel(Vector3Int position, TileType type, bool isOpen, MapObjectModel mapObject = null)
         {
             Position = position;
             Type = type;
             IsOpen = isOpen;
-            StructureTileType = structureTileType;
+            MapObject = mapObject;
         }
 
-        public void ChangeStructureType(StructureTileType structureTileType) 
+        public void SetMapObject(MapObjectModel mapObject) 
         {
-            StructureTileType = structureTileType;
+            MapObject = mapObject;
+        }
+
+        public void ClearMapObject()
+        {
+            MapObject = null;
         }
 
         public void SetTileOpen() 

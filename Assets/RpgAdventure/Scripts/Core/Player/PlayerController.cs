@@ -9,8 +9,11 @@ using VContainer;
 
 namespace TandC.RpgAdventure.Core.Player
 {
-    public class PlayerSpawner
+    public class PlayerController
     {
+        public Action OnPlayerMoveStart;
+        public Action OnPlayerMoveEnd;
+
         private Tilemap _tilemap;
         private GameObject _playerPrefab;
         private Vector3 _step;
@@ -68,16 +71,17 @@ namespace TandC.RpgAdventure.Core.Player
 
         public void MovePlayerToTile(TileModel tile)
         {
+            OnPlayerMoveStart?.Invoke();
             var worldPosition = _tilemap.CellToWorld(tile.Position) + _step;
-            Player.transform.DOMove(worldPosition, 0.6f);
+            Player.transform.DOMove(worldPosition, 0.7f);
             _animator.SetTrigger("Walk");
-
             _model.flipX = worldPosition.x < Player.transform.position.x;
 
-            Observable.Timer(TimeSpan.FromSeconds(0.6))
+            Observable.Timer(TimeSpan.FromSeconds(0.7f))
                     .Subscribe(_ =>
             {
                 _animator.SetTrigger("Idle");
+                OnPlayerMoveEnd?.Invoke();
             }).AddTo(Player);
 
             UpdateTileAndFog(tile.Position);
@@ -85,7 +89,7 @@ namespace TandC.RpgAdventure.Core.Player
 
         private void UpdateTileAndFog(Vector3Int position)
         {
-            _viewModel.SetCurrentCentralTile(position);
+            
             _fogOfWar.UpdateFog(position);
         }
     }

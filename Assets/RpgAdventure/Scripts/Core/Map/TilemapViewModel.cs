@@ -58,7 +58,7 @@ namespace TandC.RpgAdventure.Core.Map
                     tileData.Position,
                     tileData.Type,
                     tileData.IsOpen,
-                    tileData.StructureType
+                    tileData.MapObject
                 );
                 loadedTiles.Add(tile);
             }
@@ -77,7 +77,7 @@ namespace TandC.RpgAdventure.Core.Map
                 {
                     Position = tile.Position,
                     Type = tile.Type,
-                    StructureType = tile.StructureTileType,
+                    MapObject = tile.MapObject,
                     IsOpen = tile.IsOpen
                 };
                 mapData.Tiles.Add(tileData);
@@ -130,9 +130,6 @@ namespace TandC.RpgAdventure.Core.Map
                 }
             }
             Tiles = tilesToAdd;
-
-            var structureSpawner = new StructureSpawner(this, _structureConfig);
-            structureSpawner.SpawnStructures();
         }
 
         private TileType DetermineTileType(TileBase tile)
@@ -149,16 +146,19 @@ namespace TandC.RpgAdventure.Core.Map
 
         public TileModel GetSpawnPlayerTile()
         {
-            TileModel spawnTile = GetRandomSpawnableTile();
+            TileModel spawnTile = GetRandomTile();
             CurrentCentralTile = spawnTile;
             return spawnTile;
         }
 
-        private TileModel GetRandomSpawnableTile()
+        public List<TileModel> GetAccessibleTiles() 
         {
-            var spawnableTiles = Tiles
-                           .Where(t => t.Type == TileType.Land || t.Type == TileType.Sand)
-                           .ToList();
+            return Tiles.Where(t => t.Type == TileType.Land || t.Type == TileType.Sand).ToList();
+        }
+
+        public TileModel GetRandomTile()
+        {
+            var spawnableTiles = GetAccessibleTiles();
 
             if (spawnableTiles.Count == 0)
             {
@@ -199,7 +199,6 @@ namespace TandC.RpgAdventure.Core.Map
                     }
                 }
             }
-
             return surroundingTiles;
         }
 
@@ -235,6 +234,29 @@ namespace TandC.RpgAdventure.Core.Map
             {
                 CurrentCentralTile = tile;
             }
+        }
+
+        public int GetHexDistance(Vector3Int a, Vector3Int b)
+        {
+            return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z)) / 2;
+        }
+
+        public TileModel GetRandomTilesInRadius(Vector3Int center, int radius)
+        {
+            var radiusTile = GetTilesInRadius(center, radius);
+
+            if (radiusTile.Count == 0)
+            {
+                Debug.LogError("No valid spawnable tiles found!");
+                return null;
+            }
+
+            return radiusTile[Random.Range(0, radiusTile.Count)];
+        }
+
+        private List<TileModel> GetTilesInRadius(Vector3Int center, int radius)
+        {
+            return GetAccessibleTiles().Where(tile => GetHexDistance(center, tile.Position) <= radius).ToList();
         }
     }
 }
