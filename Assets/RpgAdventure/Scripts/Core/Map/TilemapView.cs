@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TandC.RpgAdventure.Config;
 using TandC.RpgAdventure.Core.Map.MapObject;
 using TandC.RpgAdventure.Core.Player;
 using TandC.RpgAdventure.Services;
@@ -7,7 +6,6 @@ using TandC.RpgAdventure.Settings;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 using VContainer;
 
 namespace TandC.RpgAdventure.Core.Map
@@ -104,7 +102,8 @@ namespace TandC.RpgAdventure.Core.Map
         {
             ShowHideCurrentPlaceHodlers(false);
             List<TileModel> surroundingTiles = _viewModel.GetSurroundingTilesFromCentral();
-            List<TileModel> tilesForCreate = _viewModel.GetSecondCircle();
+            List<Vector3Int> secondCirclePositions = _viewModel.GetSecondCircle(_viewModel.CurrentCentralTile.Position);
+            List<TileModel> tilesForCreate = _viewModel.GetTilesByPositions(secondCirclePositions);
             _mapObjectViewModel.TryCreateNarrativeMark(tilesForCreate);
             _mapObjectView.UpLayerToOpenedStructure(surroundingTiles);
             _mapObjectViewModel.UpdateNarratives();

@@ -563,7 +563,7 @@ MonoBehaviour:
   _fogTilemap: {fileID: 640956227}
   _fogTile: {fileID: 11400000, guid: a342c315bbc4d2943aa902a2c011e1ea, type: 2}
   _tilemap: {fileID: 968612198}
-  _playerVision: 2
+  _playerVision: 1
 --- !u!4 &279630521
 Transform:
   m_ObjectHideFlags: 0
@@ -17506,40 +17506,6 @@ MonoBehaviour:
   _levelConfig: {fileID: 11400000, guid: 307bda0dd7bf0674dbb8207a3681bf4f, type: 2}
   _structureConfig: {fileID: 11400000, guid: f102c493d04963e4da854bce8e067d13, type: 2}
   _playerPrefab: {fileID: 6700901524588227694, guid: 9f1db0eeb13e6fb43ab4e41284350c7a, type: 3}
---- !u!114 &1172247307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 1576397211}
-  m_Color: {r: 0.79960203, g: 0.52489024, b: 0.53958845, a: 1}
-  m_Transform:
-    e00: 1
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 1
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 1
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 1
-  m_InstancedGameObject: {fileID: 0}
-  m_Flags: 3
-  m_ColliderType: 1
 --- !u!114 &1371237568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17621,7 +17587,7 @@ MonoBehaviour:
   _placeholderPrefab: {fileID: 3376217348579541328, guid: 86f374617d71e7a4ab2635ecb1237d5f, type: 3}
   _playerPrefab: {fileID: 6700901524588227694, guid: 9f1db0eeb13e6fb43ab4e41284350c7a, type: 3}
   _structureTilemap: {fileID: 0}
---- !u!213 &1576397211
+--- !u!213 &1613719740
 Sprite:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17867,6 +17833,40 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1781671348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Sprite: {fileID: 1613719740}
+  m_Color: {r: 0.884025, g: 0.50575304, b: 0.57695466, a: 1}
+  m_Transform:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
+  m_InstancedGameObject: {fileID: 0}
+  m_Flags: 3
+  m_ColliderType: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

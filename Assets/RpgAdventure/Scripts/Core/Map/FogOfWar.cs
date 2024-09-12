@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 using VContainer;
 
 namespace TandC.RpgAdventure.Core.Map
@@ -35,24 +32,12 @@ namespace TandC.RpgAdventure.Core.Map
                 }
             }
         }
-        //public void UpdateFog(Vector3Int playerPosition) Old
-        //{
-        //    for (int i = -_playerVision; i <= _playerVision; i++)
-        //    {
-        //        for (int j = -_playerVision; j <= _playerVision; j++)
-        //        {
-        //            Vector3Int openedPosition = playerPosition + new Vector3Int(i, j);
-        //            _fogTilemap.SetTile(openedPosition, null);
-        //            _tilemapViewModel.SetTileOpen(openedPosition);
-        //        }
-        //    }
-        //}
 
         public void UpdateFog(Vector3Int playerPosition)
         {
+            OpenTile(playerPosition);
             if (_playerVision == 0)
             {
-                OpenTile(playerPosition);
                 return;
             }
             if (_playerVision == 1)

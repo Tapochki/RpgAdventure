@@ -1,5 +1,4 @@
 using Cysharp.Threading.Tasks;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using TandC.RpgAdventure.Config;
@@ -225,13 +224,13 @@ namespace TandC.RpgAdventure.Core.Map
 
         public List<Vector3Int> GetFirstCircle(Vector3Int centerPosition)
         {
-            Vector3Int[] directions = GetDirectionsFromSelectedPosition(centerPosition);
+            Vector3Int[] directions = GetDirectionsFromPosition(centerPosition);
+
             var firstCircle = new List<Vector3Int>();
 
             foreach (var direction in directions)
             {
-                Vector3Int neighborPosition = centerPosition + direction;
-                firstCircle.Add(neighborPosition);
+                firstCircle.Add(centerPosition + direction);
             }
 
             return firstCircle;
@@ -240,12 +239,12 @@ namespace TandC.RpgAdventure.Core.Map
         public List<Vector3Int> GetSecondCircle(Vector3Int centerPosition)
         {
             var firstCircle = GetFirstCircle(centerPosition);
+
             var secondCircle = new List<Vector3Int>();
 
             foreach (var position in firstCircle)
             {
-                var surroundingTiles = GetFirstCircle(position);
-                secondCircle.AddRange(surroundingTiles);
+                secondCircle.AddRange(GetFirstCircle(position));
             }
 
             return secondCircle.Distinct().ToList();
@@ -267,10 +266,10 @@ namespace TandC.RpgAdventure.Core.Map
 
             if (!isEvenRow)
             {
-                directions[2] += new Vector3Int(1, 0, 0);  // Down-Left becomes Down-Right
-                directions[3] += new Vector3Int(1, 0, 0);  // Up becomes Down-Right
-                directions[4] += new Vector3Int(1, 0, 0);  // Bottom-Left becomes Top-Left
-                directions[5] += new Vector3Int(1, 0, 0);  // Top-Left becomes Bottom-Left
+                directions[2] += new Vector3Int(1, 0, 0);  // Down-Left становится Down-Right
+                directions[3] += new Vector3Int(1, 0, 0);  // Up становится Up-Right
+                directions[4] += new Vector3Int(1, 0, 0);  // Bottom-Left становится Bottom-Right
+                directions[5] += new Vector3Int(1, 0, 0);  // Top-Left становится Top-Right
             }
 
             return directions;
@@ -306,6 +305,22 @@ namespace TandC.RpgAdventure.Core.Map
         private List<TileModel> GetTilesInRadius(Vector3Int center, int radius)
         {
             return GetAccessibleTiles().Where(tile => GetHexDistance(center, tile.Position) <= radius).ToList();
+        }
+
+        public List<TileModel> GetTilesByPositions(List<Vector3Int> positions)
+        {
+            var tiles = new List<TileModel>();
+
+            foreach (var position in positions)
+            {
+                var tile = GetTileAtPosition(position);
+                if (tile != null)
+                {
+                    tiles.Add(tile);
+                }
+            }
+
+            return tiles;
         }
     }
 }
