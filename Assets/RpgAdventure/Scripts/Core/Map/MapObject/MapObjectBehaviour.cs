@@ -8,11 +8,14 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
     {
         private MapObjectModel _model;
 
+        private SpriteRenderer _spriteRenderer;
+
         public event Action<GameObject> OnPlayerInteract;
         public event Action<GameObject> OnPlayerExit;
 
         public void Initialize(MapObjectModel model)
         {
+            _spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
             _model = model;
         }
 
@@ -31,6 +34,11 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
             {
                 HandlePlayerExit();
             }
+        }
+
+        public void UpLayer() 
+        {
+            _spriteRenderer.sortingOrder = 30;
         }
 
         private void HandlePlayerInteraction()

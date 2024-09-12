@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using VContainer;
 
 namespace TandC.RpgAdventure.Core.Map
@@ -49,22 +50,34 @@ namespace TandC.RpgAdventure.Core.Map
 
         public void UpdateFog(Vector3Int playerPosition)
         {
-            if(_playerVision == 0) 
+            if (_playerVision == 0)
             {
-                _fogTilemap.SetTile(playerPosition, null);
-                _tilemapViewModel.SetTileOpen(playerPosition);
+                OpenTile(playerPosition);
                 return;
             }
-            List<Vector3Int> directions = new List<Vector3Int>() { new Vector3Int(0, 0) };
-
-            directions.AddRange(_tilemapViewModel.GetDirections());
-
-            for (int i = 0; i < directions.Count; i++)
+            if (_playerVision == 1)
             {
-                Vector3Int openedPosition = playerPosition + directions[i];
-                _fogTilemap.SetTile(openedPosition, null);
-                _tilemapViewModel.SetTileOpen(openedPosition);
+                var firstCircle = _tilemapViewModel.GetFirstCircle(playerPosition);
+                foreach (var position in firstCircle)
+                {
+                    OpenTile(position);
+                }
             }
+            if (_playerVision == 2)
+            {
+                var secondCircle = _tilemapViewModel.GetSecondCircle(playerPosition);
+                foreach (var position in secondCircle)
+                {
+                    OpenTile(position);
+                }
+
+            }
+        }
+
+        private void OpenTile(Vector3Int position)
+        {
+            _fogTilemap.SetTile(position, null);
+            _tilemapViewModel.SetTileOpen(position);
         }
 
         public void OpenFogPosition(Vector3Int tilePosition)

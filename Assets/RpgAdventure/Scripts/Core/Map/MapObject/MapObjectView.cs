@@ -97,6 +97,16 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
             structure.Dispose();
         }
 
+        public void UpLayerToOpenedStructure(List<TileModel> tileModels)
+        {
+            foreach (var tileModel in tileModels) 
+            {
+                var mapObject = GetObjectAtPosition(tileModel.Position);
+                if (mapObject != null)
+                    mapObject.UpLayer();
+            }
+        }
+
         public MapObjectBehaviour GetObjectAtPosition(Vector3Int position) => _spawnedObject.FirstOrDefault(t => t.GetPosition() == position);
     }
 }

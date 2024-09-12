@@ -21,6 +21,7 @@ namespace TandC.RpgAdventure.Core.Map
         [Inject] private ClickDetector2D _clickDetector;
         [Inject] private FogOfWar _fogOfWar;
         [Inject] private MapObjectViewModel _mapObjectViewModel;
+        [Inject] private MapObjectView _mapObjectView;
         [Inject] private PlayerController _playerSpawner;
 
         private TilemapViewModel _viewModel;
@@ -46,7 +47,7 @@ namespace TandC.RpgAdventure.Core.Map
             InitializeTiles();
             _fogOfWar.InitializeFog();
             _playerSpawner.SpawnPlayer(_viewModel.CurrentCentralTile);
-            List<TileModel> surroundingTiles = _viewModel.GetSurroundingTiles();
+            List<TileModel> surroundingTiles = _viewModel.GetSurroundingTilesFromCentral();
             UpdateTileVisibility(surroundingTiles);
             ShowHideCurrentPlaceHodlers(true);
             HandleClicks();
@@ -102,8 +103,10 @@ namespace TandC.RpgAdventure.Core.Map
         public void HandleMoveStart() 
         {
             ShowHideCurrentPlaceHodlers(false);
-            List<TileModel> surroundingTiles = _viewModel.GetSurroundingTiles();
-            _mapObjectViewModel.TryCreateNarrativeMark(surroundingTiles);
+            List<TileModel> surroundingTiles = _viewModel.GetSurroundingTilesFromCentral();
+            List<TileModel> tilesForCreate = _viewModel.GetSecondCircle();
+            _mapObjectViewModel.TryCreateNarrativeMark(tilesForCreate);
+            _mapObjectView.UpLayerToOpenedStructure(surroundingTiles);
             _mapObjectViewModel.UpdateNarratives();
             UpdateTileVisibility(surroundingTiles);
         }

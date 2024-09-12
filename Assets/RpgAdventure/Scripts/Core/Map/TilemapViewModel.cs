@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using TandC.RpgAdventure.Config;
@@ -179,16 +180,25 @@ namespace TandC.RpgAdventure.Core.Map
             return tile.Type != TileType.Water && tile.Type != TileType.Mountain;
         }
 
-        public List<TileModel> GetSurroundingTiles()
+        public List<TileModel> GetSurroundingTilesFromCentral()
         {
-            Vector3Int[] directions = GetDirections();
+            return GetSurroundingTilesFromPosition(CurrentCentralTile.Position);
+        }
 
+        public List<TileModel> GetSurroundingTilesFromSelectedPosition(Vector3Int position)
+        {
+            return GetSurroundingTilesFromPosition(position);
+        }
+
+        private List<TileModel> GetSurroundingTilesFromPosition(Vector3Int position)
+        {
+            Vector3Int[] directions = GetDirectionsFromPosition(position);
             var surroundingTiles = new List<TileModel>();
             var tilePositionSet = new HashSet<Vector3Int>(Tiles.Select(t => t.Position));
 
             foreach (var direction in directions)
             {
-                var neighborPosition = CurrentCentralTile.Position + direction;
+                var neighborPosition = position + direction;
 
                 if (tilePositionSet.Contains(neighborPosition))
                 {
@@ -199,22 +209,61 @@ namespace TandC.RpgAdventure.Core.Map
                     }
                 }
             }
-            return surroundingTiles;
+
+            return surroundingTiles.Distinct().ToList();
         }
 
-        public Vector3Int[] GetDirections()
+        private Vector3Int[] GetDirectionsFromCenttal()
+        {
+            return GetDirectionsFromPosition(CurrentCentralTile.Position);
+        }
+
+        public Vector3Int[] GetDirectionsFromSelectedPosition(Vector3Int position)
+        {
+            return GetDirectionsFromPosition(position);
+        }
+
+        public List<Vector3Int> GetFirstCircle(Vector3Int centerPosition)
+        {
+            Vector3Int[] directions = GetDirectionsFromSelectedPosition(centerPosition);
+            var firstCircle = new List<Vector3Int>();
+
+            foreach (var direction in directions)
+            {
+                Vector3Int neighborPosition = centerPosition + direction;
+                firstCircle.Add(neighborPosition);
+            }
+
+            return firstCircle;
+        }
+
+        public List<Vector3Int> GetSecondCircle(Vector3Int centerPosition)
+        {
+            var firstCircle = GetFirstCircle(centerPosition);
+            var secondCircle = new List<Vector3Int>();
+
+            foreach (var position in firstCircle)
+            {
+                var surroundingTiles = GetFirstCircle(position);
+                secondCircle.AddRange(surroundingTiles);
+            }
+
+            return secondCircle.Distinct().ToList();
+        }
+
+        private Vector3Int[] GetDirectionsFromPosition(Vector3Int position)
         {
             Vector3Int[] directions = new Vector3Int[]
             {
-            new Vector3Int(1, 0, 0),   // Right
-            new Vector3Int(-1, 0, 0),  // Left
-            new Vector3Int(0, -1, 0),  // Down
-            new Vector3Int(0, 1, 0),   // Up
-            new Vector3Int(-1, -1, 0), // Bottom-Left
-            new Vector3Int(-1, 1, 0)   // Top-Left
+        new Vector3Int(1, 0, 0),   // Right
+        new Vector3Int(-1, 0, 0),  // Left
+        new Vector3Int(0, -1, 0),  // Down
+        new Vector3Int(0, 1, 0),   // Up
+        new Vector3Int(-1, -1, 0), // Bottom-Left
+        new Vector3Int(-1, 1, 0)   // Top-Left
             };
 
-            bool isEvenRow = CurrentCentralTile.Position.y % 2 == 0;
+            bool isEvenRow = position.y % 2 == 0;
 
             if (!isEvenRow)
             {
