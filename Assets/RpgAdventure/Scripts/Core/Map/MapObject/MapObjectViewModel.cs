@@ -200,17 +200,6 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
 
         public void UpdateNarratives()
         {
-            foreach (var narrative in _activeNarratives)
-            {
-                narrative.DecreaseLifetime();
-                if (narrative.IsExpired())
-                {
-                    var tile = _tilemapViewModel.GetTileAtPosition(narrative.Position);
-                    tile.ClearMapObject();
-                    StructureDeleteEvent?.Invoke(narrative.Position);
-                }
-            }
-
             for (int i = 0; i < _activeNarratives.Count; i++)
             {
                 _activeNarratives[i].DecreaseLifetime();
