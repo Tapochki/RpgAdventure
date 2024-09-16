@@ -25,6 +25,6 @@ MonoBehaviour:
     localizedTexts:
     - key: KEY_MAIN_MENU_START
       value: "\u0421\u0442\u0430\u0440\u0442"
-  defaultLanguage: 0
+  defaultLanguage: 10
   localizationGoogleSpreadsheet: 1ETSdkw4ANRI8Fd8qUYNpK_stGRKMRKj8u18_I90dS5M
   refreshLocalizationAtStart: 0
