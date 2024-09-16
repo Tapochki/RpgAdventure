@@ -10,6 +10,9 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
 
         private SpriteRenderer _spriteRenderer;
 
+        [SerializeField]
+        private int _newLayerAfterFinding = 19;
+
         public event Action<GameObject> OnPlayerInteract;
         public event Action<GameObject> OnPlayerExit;
 
@@ -38,7 +41,7 @@ namespace TandC.RpgAdventure.Core.Map.MapObject
 
         public void UpLayer() 
         {
-            _spriteRenderer.sortingOrder = 19;
+            _spriteRenderer.sortingOrder = _newLayerAfterFinding;
         }
 
         private void HandlePlayerInteraction()

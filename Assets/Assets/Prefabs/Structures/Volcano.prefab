@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7075d1b2709dce449e3633d4028ace6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _newLayerAfterFinding: 15
 --- !u!58 &-692444347029054635
 CircleCollider2D:
   m_ObjectHideFlags: 0

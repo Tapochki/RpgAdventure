@@ -12,7 +12,7 @@ namespace TandC.RpgAdventure.Core.Map
 {
     public class TilemapView : MonoBehaviour
     {
-        [SerializeField] private GameObject _placeholderPrefab;
+        [SerializeField] private PlaceholderObject _placeholderPrefab;
 
         [Inject] private ClickDetector2D _clickDetector;
         [Inject] private FogOfWar _fogOfWar;
@@ -26,8 +26,8 @@ namespace TandC.RpgAdventure.Core.Map
 
         private Vector3 _step;
 
-        private List<GameObject> _placeholders = new List<GameObject>();
-        private List<GameObject> _currentPlaceholders = new List<GameObject>();
+        private List<PlaceholderObject> _placeholders = new List<PlaceholderObject>();
+        private List<PlaceholderObject> _currentPlaceholders = new List<PlaceholderObject>();
 
         public void SetTileViewModel(TilemapViewModel tilemapViewModel, Tilemap currentTileMap)
         {
@@ -61,7 +61,7 @@ namespace TandC.RpgAdventure.Core.Map
             var worldPosition = _tilemap.CellToWorld(tileModel.Position) + _step;
             var placeholder = Instantiate(_placeholderPrefab, worldPosition, Quaternion.identity, transform);
             placeholder.name = $"Placeholder_{tileModel.Type}_{tileModel.Position}";
-            placeholder.SetActive(false);
+            placeholder.gameObject.SetActive(false);
             _placeholders.Add(placeholder);
         }
 
@@ -76,7 +76,9 @@ namespace TandC.RpgAdventure.Core.Map
         private void HandleClicks()
         {
             _clickDetector.OnObjectClicked
-                .Select(clickedObject => clickedObject.transform.position)
+                .Select(clickedObject => clickedObject.GetComponent<PlaceholderObject>())
+                .Where(placeholder => placeholder != null)
+                .Select(placeholder => placeholder.transform.position)
                 .Subscribe(clickPosition => HandleTileClick(clickPosition))
                 .AddTo(this);
         }
@@ -130,7 +132,7 @@ namespace TandC.RpgAdventure.Core.Map
         {
             foreach(var placeholder in _currentPlaceholders) 
             {
-                placeholder?.SetActive(value);
+                placeholder?.gameObject.SetActive(value);
             }
         }
     }
