@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311b4c624fd22fb4f98a6d20065865dc, type: 3}
+  m_Name: LocalizationData
+  m_EditorClassIdentifier: 
+  languages:
+  - language: 10
+    localizedTexts:
+    - key: KEY_MAIN_MENU_START
+      value: Start
+  - language: 30
+    localizedTexts:
+    - key: KEY_MAIN_MENU_START
+      value: "\u0421\u0442\u0430\u0440\u0442"
+  - language: 38
+    localizedTexts:
+    - key: KEY_MAIN_MENU_START
+      value: "\u0421\u0442\u0430\u0440\u0442"
+  defaultLanguage: 0
+  localizationGoogleSpreadsheet: 1ETSdkw4ANRI8Fd8qUYNpK_stGRKMRKj8u18_I90dS5M
+  refreshLocalizationAtStart: 0
