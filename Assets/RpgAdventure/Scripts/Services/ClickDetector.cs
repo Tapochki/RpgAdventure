@@ -30,7 +30,9 @@ namespace TandC.RpgAdventure.Services
 
         private void OnClick(Vector3 worldPosition)
         {
-            RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero);
+            int placeholderLayerMask = LayerMask.GetMask("PlaceholderLayer");
+            RaycastHit2D hit = Physics2D.Raycast(worldPosition, Vector2.zero, Mathf.Infinity, placeholderLayerMask);
+
             if (hit.collider != null)
             {
                 onObjectClicked.OnNext(hit.collider.gameObject);
