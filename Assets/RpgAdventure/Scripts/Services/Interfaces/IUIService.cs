@@ -9,5 +9,6 @@ namespace TandC.RpgAdventure.Services
         void RegisterPopup(IUIPopup popup);
         void SetPage<T>() where T : IUIPage;
         void DrawPopup<T>(object message = null, bool setMainPriority = false) where T : IUIPopup;
+        void HidePopup<T>() where T : IUIPopup;
     }
 }

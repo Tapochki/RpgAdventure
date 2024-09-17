@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using TandC.RpgAdventure.Ui;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TandC.RpgAdventure.Services 
+namespace TandC.RpgAdventure.Services
 {
     public class UIService : IUIService
     {
@@ -18,14 +20,17 @@ namespace TandC.RpgAdventure.Services
 
         public Camera UICamera { get; set; }
 
+        private IDisposable _updateSubscription;
+
         public void Init()
         {
             Canvas = GameObject.Find("CanvasUI");
             UICamera = GameObject.Find("CameraUI").GetComponent<Camera>();
             CanvasScaler = Canvas.GetComponent<CanvasScaler>();
 
-            foreach (var popup in _uiPopups)
-                popup.Init();
+            //_updateSubscription = Observable.EveryUpdate()
+            //    .Where(_ => CurrentPage != null && CurrentPage.IsActive)
+            //    .Subscribe(_ => CurrentPage.Update());
         }
 
         public void RegisterPage(IUIPage page)
@@ -33,7 +38,7 @@ namespace TandC.RpgAdventure.Services
             if (!_uiPages.Contains(page))
             {
                 _uiPages.Add(page);
-
+                page.Init();
             }
         }
 
@@ -48,9 +53,9 @@ namespace TandC.RpgAdventure.Services
 
         public void SetPage<T>() where T : IUIPage
         {
+            if (CurrentPage != null)
             {
-                if (CurrentPage != null)
-                    CurrentPage.Hide();
+                CurrentPage.Hide();
             }
 
             foreach (var _page in _uiPages)
@@ -76,12 +81,45 @@ namespace TandC.RpgAdventure.Services
             }
 
             if (setMainPriority)
+            {
                 CurrentPopup.SetMainPriority();
+            }
 
             if (message == null)
+            {
                 CurrentPopup.Show();
+            }
             else
+            {
                 CurrentPopup.Show(message);
+            }
+        }
+
+        public void HidePopup<T>() where T : IUIPopup
+        {
+            foreach (var _popup in _uiPopups)
+            {
+                if (_popup is T)
+                {
+                    _popup.Hide();
+                    break;
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var _popup in _uiPopups)
+            {
+                _popup.Dispose();
+            }
+
+            foreach (var _page in _uiPages)
+            {
+                _page.Dispose();
+            }
+
+            _updateSubscription?.Dispose();
         }
     }
 }

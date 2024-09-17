@@ -1,8 +1,8 @@
-﻿using TandC.RpgAdventure.Bootstrap.Units;
-using Cysharp.Threading.Tasks;
-using VContainer.Unity;
-using TandC.RpgAdventure.Settings;
+﻿using Cysharp.Threading.Tasks;
+using TandC.RpgAdventure.Bootstrap.Units;
 using TandC.RpgAdventure.Services;
+using TandC.RpgAdventure.Settings;
+using VContainer.Unity;
 
 namespace TandC.RpgAdventure.Meta
 {
@@ -20,7 +20,7 @@ namespace TandC.RpgAdventure.Meta
         public async void Start()
         {
             await _loadingService.BeginLoading(new FooLoadingUnit(1));
-            _sceneManager.LoadScene(AppConstants.Scenes.Core).Forget();
+            _sceneManager.LoadScene(AppConstants.Scenes.MainMenu).Forget();
         }
     }
 }
