@@ -37,6 +37,23 @@ namespace TandC.RpgAdventure.Settings
         }
     }
 
+    public class PlayerConfig
+    {
+        public ClassType ClassType;
+        public RaceType RaceType;
+        public PlayerCharacteristics PlayerCharacteristics;
+    }
+
+    public class PlayerCharacteristics
+    {
+        public int Strength;
+        public int Dexterity;
+        public int Intelligence;
+        public int Charisma;
+        public int Luck;
+        public int Perception;
+    }
+
     public class TileSaveData
     {
         public Vector3Int Position;
