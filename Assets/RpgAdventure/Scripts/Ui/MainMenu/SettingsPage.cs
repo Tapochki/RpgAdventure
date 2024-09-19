@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Ui;
+using TandC.RpgAdventure.UI.MainMenu.SettingGroups;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -23,36 +24,27 @@ namespace TandC.RpgAdventure.UI.MainMenu
         private Button _languageButton;
         private Button _exitButton;
 
-        [Inject] private UIService _uiService;
+        private List<ISettingGroup> _groups;
 
-        public void Init()
+        private IUIService _uiService;
+        private DataService _dataService;
+
+        public void Init(IUIService uiService, DataService dataService)
         {
-            _selfObject = _uiService.Canvas.transform.Find("Canvas/Page_Settings").gameObject;
+            _uiService = uiService;
+            _dataService = dataService;
 
-            _canvasGroup = _selfObject.GetComponent<CanvasGroup>();
+            InitializeAllVariables();
 
-            GameObject containerCategories = _selfObject.transform.Find("Container_Categories").gameObject;
+            SetupButtons();
 
-            _audioButton = containerCategories.transform.Find("Button_Audio").GetComponent<Button>();
-            _videoButton = containerCategories.transform.Find("Button_Video").GetComponent<Button>();
-            _graphicButton = containerCategories.transform.Find("Button_Graphic").GetComponent<Button>();
-            _keyMappingButton = containerCategories.transform.Find("Button_KeyMapping").GetComponent<Button>();
-            _languageButton = containerCategories.transform.Find("Button_Language").GetComponent<Button>();
-            _exitButton = containerCategories.transform.Find("Button_Exit").GetComponent<Button>();
-
-            _audioButton.onClick.AddListener(AudioButtonOnClickHandler);
-            _videoButton.onClick.AddListener(VideoButtonOnClickHandler);
-            _graphicButton.onClick.AddListener(GraphicButtonOnClickHandler);
-            _keyMappingButton.onClick.AddListener(KeyMappingButtonOnClickHandler);
-            _languageButton.onClick.AddListener(LanguageButtonOnClickHandler);
-            _exitButton.onClick.AddListener(ExitButtonOnClickHandler);
-
-            ChangeState(true);
+            Hide();
         }
 
         public void Show()
         {
             ChangeState(true);
+            ShowGroup<AudioSettingGroup>();
         }
 
         public void Hide()
@@ -95,9 +87,42 @@ namespace TandC.RpgAdventure.UI.MainMenu
             _canvasGroup.blocksRaycasts = isOn;
         }
 
+        private void InitializeAllVariables()
+        {
+            _selfObject = _uiService.Canvas.transform.Find("Page_Settings").gameObject;
+
+            _canvasGroup = _selfObject.GetComponent<CanvasGroup>();
+
+            GameObject containerCategories = _selfObject.transform.Find("Container_Categories").gameObject;
+
+            _audioButton = containerCategories.transform.Find("Button_Audio").GetComponent<Button>();
+            _videoButton = containerCategories.transform.Find("Button_Video").GetComponent<Button>();
+            _graphicButton = containerCategories.transform.Find("Button_Graphic").GetComponent<Button>();
+            _keyMappingButton = containerCategories.transform.Find("Button_KeyMapping").GetComponent<Button>();
+            _languageButton = containerCategories.transform.Find("Button_Language").GetComponent<Button>();
+            _exitButton = containerCategories.transform.Find("Button_Exit").GetComponent<Button>();
+
+            _groups = new List<ISettingGroup>
+            {
+                new AudioSettingGroup(),
+            };
+
+            InitGroups();
+        }
+
+        private void SetupButtons()
+        {
+            _audioButton.onClick.AddListener(AudioButtonOnClickHandler);
+            _videoButton.onClick.AddListener(VideoButtonOnClickHandler);
+            _graphicButton.onClick.AddListener(GraphicButtonOnClickHandler);
+            _keyMappingButton.onClick.AddListener(KeyMappingButtonOnClickHandler);
+            _languageButton.onClick.AddListener(LanguageButtonOnClickHandler);
+            _exitButton.onClick.AddListener(ExitButtonOnClickHandler);
+        }
+
         private void AudioButtonOnClickHandler()
         {
-
+            ShowGroup<AudioSettingGroup>();
         }
 
         private void VideoButtonOnClickHandler()
@@ -122,7 +147,35 @@ namespace TandC.RpgAdventure.UI.MainMenu
 
         private void ExitButtonOnClickHandler()
         {
+            _uiService.SetPage<MainMenuPage>();
+        }
 
+        private void MakeSureThatAllSaved()
+        {
+            // TODO - make as soon as possible check if WasModified setted to true in some group
+        }
+
+        private void ShowGroup<T>() where T : ISettingGroup
+        {
+            foreach (var group in _groups)
+            {
+                if (group is T)
+                {
+                    group.Show();
+                }
+                else
+                {
+                    group.Hide();
+                }
+            }
+        }
+
+        private void InitGroups()
+        {
+            foreach (var group in _groups)
+            {
+                group.Init(_uiService, _dataService);
+            }
         }
     }
 }

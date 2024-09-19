@@ -1,4 +1,5 @@
-﻿using VContainer;
+﻿using TandC.RpgAdventure.Services;
+using VContainer;
 using VContainer.Unity;
 
 namespace TandC.RpgAdventure.MainMenu
@@ -7,6 +8,8 @@ namespace TandC.RpgAdventure.MainMenu
     {
         protected override void Configure(IContainerBuilder builder)
         {
+            builder.Register<UIService>(Lifetime.Scoped).As<IUIService>();
+
             builder.RegisterEntryPoint<MainMenuFlow>();
         }
     }

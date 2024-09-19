@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Ui;
 using UnityEngine;
@@ -17,31 +15,22 @@ namespace TandC.RpgAdventure.UI.MainMenu
         private CanvasGroup _canvasGroup;
 
         private Button _startButton;
+        private Button _continueButton;
         private Button _settingsButton;
         private Button _collectionsButton;
         private Button _upgradesButton;
 
-        [Inject] private UIService _uiService;
+        private IUIService _uiService;
 
-        public void Init()
+        public void Init(IUIService uiService, DataService dataService)
         {
-            _selfObject = _uiService.Canvas.transform.Find("Canvas/Page_MainMenu").gameObject;
+            _uiService = uiService;
 
-            _canvasGroup = _selfObject.GetComponent<CanvasGroup>();
+            InitializeAllVariables();
 
-            GameObject containerButtons = _selfObject.transform.Find("Container_Buttons").gameObject;
+            SetupAllButtons();
 
-            _startButton = containerButtons.transform.Find("Button_Start").GetComponent<Button>();
-            _settingsButton = containerButtons.transform.Find("Button_Settings").GetComponent<Button>();
-            _collectionsButton = containerButtons.transform.Find("Button_Collections").GetComponent<Button>();
-            _upgradesButton = containerButtons.transform.Find("Button_Upgrades").GetComponent<Button>();
-
-            _startButton.onClick.AddListener(StartButtonOnClickHandler);
-            _settingsButton.onClick.AddListener(SettingsButtonOnClickHandler);
-            _collectionsButton.onClick.AddListener(CollectionsButtonOnClickHandler);
-            _upgradesButton.onClick.AddListener(UpgradesButtonOnClickHandler);
-
-            ChangeState(true);
+            Show();
         }
 
         public void Show()
@@ -62,13 +51,16 @@ namespace TandC.RpgAdventure.UI.MainMenu
         public void Dispose()
         {
             _startButton.onClick.RemoveAllListeners();
+            _continueButton.onClick.RemoveAllListeners();
             _settingsButton.onClick.RemoveAllListeners();
             _collectionsButton.onClick.RemoveAllListeners();
             _upgradesButton.onClick.RemoveAllListeners();
 
             _selfObject = null;
             _canvasGroup = null;
+
             _startButton = null;
+            _continueButton = null;
             _settingsButton = null;
             _collectionsButton = null;
             _upgradesButton = null;
@@ -85,14 +77,43 @@ namespace TandC.RpgAdventure.UI.MainMenu
             _canvasGroup.blocksRaycasts = isOn;
         }
 
+        private void InitializeAllVariables()
+        {
+            _selfObject = _uiService.Canvas.transform.Find("Page_MainMenu").gameObject;
+
+            _canvasGroup = _selfObject.GetComponent<CanvasGroup>();
+
+            GameObject containerButtons = _selfObject.transform.Find("Container_Buttons").gameObject;
+
+            _startButton = containerButtons.transform.Find("Button_Start").GetComponent<Button>();
+            _continueButton = containerButtons.transform.Find("Button_Continue").GetComponent<Button>();
+            _settingsButton = containerButtons.transform.Find("Button_Settings").GetComponent<Button>();
+            _collectionsButton = containerButtons.transform.Find("Button_Collections").GetComponent<Button>();
+            _upgradesButton = containerButtons.transform.Find("Button_Upgrades").GetComponent<Button>();
+        }
+
+        private void SetupAllButtons()
+        {
+            _startButton.onClick.AddListener(StartButtonOnClickHandler);
+            _continueButton.onClick.AddListener(ContinueButtonOnClickHandler);
+            _settingsButton.onClick.AddListener(SettingsButtonOnClickHandler);
+            _collectionsButton.onClick.AddListener(CollectionsButtonOnClickHandler);
+            _upgradesButton.onClick.AddListener(UpgradesButtonOnClickHandler);
+        }
+
         private void StartButtonOnClickHandler()
         {
+        }
+
+        private void ContinueButtonOnClickHandler()
+        {
+            // TODO - continue game
         }
 
         private void SettingsButtonOnClickHandler()
         {
             // TODO - add settings page script
-            //_uiService.SetPage<>();
+            _uiService.SetPage<SettingsPage>();
         }
 
         private void CollectionsButtonOnClickHandler()

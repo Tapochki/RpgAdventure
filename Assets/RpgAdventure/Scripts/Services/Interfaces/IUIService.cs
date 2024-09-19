@@ -1,9 +1,12 @@
 ﻿using TandC.RpgAdventure.Ui;
+using UnityEngine;
 
 namespace TandC.RpgAdventure.Services
 {
     public interface IUIService
     {
+        GameObject Canvas { get; }
+        Camera UICamera { get; }
         void Init();
         void RegisterPage(IUIPage page);
         void RegisterPopup(IUIPopup popup);

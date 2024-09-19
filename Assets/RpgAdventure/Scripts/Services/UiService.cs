@@ -4,6 +4,7 @@ using TandC.RpgAdventure.Ui;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace TandC.RpgAdventure.Services
 {
@@ -12,25 +13,30 @@ namespace TandC.RpgAdventure.Services
         private List<IUIPage> _uiPages;
         private List<IUIPopup> _uiPopups;
 
-        public IUIPage CurrentPage { get; set; }
-        public IUIPopup CurrentPopup { get; set; }
+        public IUIPage CurrentPage { get; private set; }
+        public IUIPopup CurrentPopup { get; private set; }
 
-        public CanvasScaler CanvasScaler { get; set; }
-        public GameObject Canvas { get; set; }
+        public CanvasScaler CanvasScaler { get; private set; }
+        public GameObject Canvas { get; private set; }
 
-        public Camera UICamera { get; set; }
+        public Camera UICamera { get; private set; }
 
         private IDisposable _updateSubscription;
 
+        [Inject] private DataService _dataService;
+
         public void Init()
         {
-            Canvas = GameObject.Find("CanvasUI");
-            UICamera = GameObject.Find("CameraUI").GetComponent<Camera>();
+            Canvas = GameObject.Find("Canvas");
+            UICamera = GameObject.Find("Camera_UI").GetComponent<Camera>();
             CanvasScaler = Canvas.GetComponent<CanvasScaler>();
 
             //_updateSubscription = Observable.EveryUpdate()
             //    .Where(_ => CurrentPage != null && CurrentPage.IsActive)
             //    .Subscribe(_ => CurrentPage.Update());
+
+            _uiPages = new List<IUIPage>();
+            _uiPopups = new List<IUIPopup>();
         }
 
         public void RegisterPage(IUIPage page)
@@ -38,7 +44,7 @@ namespace TandC.RpgAdventure.Services
             if (!_uiPages.Contains(page))
             {
                 _uiPages.Add(page);
-                page.Init();
+                page.Init(this as IUIService, _dataService);
             }
         }
 

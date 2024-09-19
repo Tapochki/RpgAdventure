@@ -97,8 +97,9 @@ namespace TandC.RpgAdventure.Services
             {
                 isFirstRun = true,
                 appLanguage = (Languages)Application.systemLanguage,
-                musicVolume = 1,
-                soundVolume = 1,
+                masterVolume = 0,
+                musicVolume = 0,
+                soundVolume = 0,
             };
         }
 
@@ -120,7 +121,7 @@ namespace TandC.RpgAdventure.Services
             };
         }
 
-        public MapData GetDefaultMapData() 
+        public MapData GetDefaultMapData()
         {
             SetDefaultMapData();
             return MapData;

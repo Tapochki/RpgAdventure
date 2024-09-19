@@ -12,9 +12,28 @@ namespace TandC.RpgAdventure.Settings
     public class AppSettingsData
     {
         public bool isFirstRun;
-        public float soundVolume;
+
+        //AUDIO --------- START
+        public float masterVolume;
         public float musicVolume;
+        public float soundVolume;
+        //AUDIO --------- END
+
+        //VIDEO --------- START
+
+        //VIDEO --------- END
+
+        //GRAPHIC --------- START
+
+        //GRAPHIC --------- END
+
+        //KEY MAPPING --------- START
+
+        //KEY MAPPING --------- END
+
+        //LANGUAGE --------- START
         public Languages appLanguage;
+        //LANGUAGE --------- END
     }
 
     public class LocalisationSheetData
@@ -31,7 +50,7 @@ namespace TandC.RpgAdventure.Settings
         public List<TileSaveData> Tiles;
         public Vector3Int PlayerPosition;
 
-        public bool HasSaveData() 
+        public bool HasSaveData()
         {
             return LevelId > 0;
         }

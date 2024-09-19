@@ -1,10 +1,11 @@
+using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Ui;
 
 namespace TandC.RpgAdventure.UI.CoreUi
 {
     public class GameplayPage : IUIPage
     {
-        public void Init()
+        public void Init(IUIService uiService, DataService dataService)
         {
 
         }
