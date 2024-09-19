@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a251954deacce5499c39b2f4b824007, type: 3}
+  m_Name: CharacterConfig
+  m_EditorClassIdentifier: 
+  _charactersRace:
+  - characterRace: 1
+    characterObject: {fileID: 6700901524588227694, guid: 9f1db0eeb13e6fb43ab4e41284350c7a, type: 3}
+    aviableCharacterClass:
+    - characterClass: 1
+      baseAttributes:
+        Strength: 60
+        Agility: 40
+        Intelligence: 30
+        Charisma: 50
+        Luck: 50
+        Perception: 45
+        Health: 150
+        Stamina: 85
+      portrait: {fileID: 0}
+      startPlayerItemsId: 03000000040000000500000006000000010000000b0000000d0000000d0000000e000000
+    - characterClass: 2
+      baseAttributes:
+        Strength: 45
+        Agility: 55
+        Intelligence: 45
+        Charisma: 40
+        Luck: 60
+        Perception: 60
+        Health: 75
+        Stamina: 125
+      portrait: {fileID: 0}
+      startPlayerItemsId: 020000000700000008000000090000000a0000000c0000000d0000000d0000000e000000
+  - characterRace: 2
+    characterObject: {fileID: 6700901524588227694, guid: 502035ed00a60434ba4ae96cac254b6b, type: 3}
+    aviableCharacterClass:
+    - characterClass: 1
+      baseAttributes:
+        Strength: 55
+        Agility: 45
+        Intelligence: 35
+        Charisma: 40
+        Luck: 55
+        Perception: 45
+        Health: 140
+        Stamina: 85
+      portrait: {fileID: 0}
+      startPlayerItemsId: 03000000040000000500000006000000010000000b0000000d0000000d0000000e000000
+    - characterClass: 2
+      baseAttributes:
+        Strength: 40
+        Agility: 60
+        Intelligence: 50
+        Charisma: 35
+        Luck: 60
+        Perception: 60
+        Health: 65
+        Stamina: 135
+      portrait: {fileID: 0}
+      startPlayerItemsId: 020000000700000008000000090000000a0000000c0000000d0000000d0000000e000000
