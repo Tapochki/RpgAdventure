@@ -14,10 +14,11 @@ public class ItemCreatorWindow : EditorWindow
     private float weight = 0f;
     private EquipmentSlot equipmentSlot;
     private int weaponDamage = 0;
-    private CharacterAttributes characterAttributes;
+    private CharacterAttributes characterAttributes = new CharacterAttributes();
     private int effectStrength = 0;
     private bool isInfinite = false;
     private EffectType effectType;
+    private int maxStack = 1;
 
     private ItemConfig itemConfig;
 
@@ -47,7 +48,7 @@ public class ItemCreatorWindow : EditorWindow
         itemRareType = (ItemRariryType)EditorGUILayout.EnumPopup("Item Rarity", itemRareType);
         baseValue = EditorGUILayout.IntField("Base Value", baseValue);
         weight = EditorGUILayout.FloatField("Weight", weight);
-
+        maxStack = EditorGUILayout.IntField("Max Stack", maxStack);
         if (itemType == ItemType.Weapon)
         {
             equipmentSlot = (EquipmentSlot)EditorGUILayout.EnumPopup("Equipment Slot", equipmentSlot);
@@ -57,6 +58,10 @@ public class ItemCreatorWindow : EditorWindow
         {
             equipmentSlot = (EquipmentSlot)EditorGUILayout.EnumPopup("Equipment Slot", equipmentSlot);
             EditorGUILayout.LabelField("Character Attributes");
+            if (characterAttributes == null)
+            {
+                characterAttributes = new CharacterAttributes();
+            }
             EditorGUI.indentLevel++;
             characterAttributes.Strength = EditorGUILayout.IntField("Strength", characterAttributes.Strength);
             characterAttributes.Agility = EditorGUILayout.IntField("Agility", characterAttributes.Agility);
@@ -100,9 +105,11 @@ public class ItemCreatorWindow : EditorWindow
             slot = equipmentSlot,
             weaponDamage = weaponDamage,
             characterAttributes = characterAttributes,
+            itemRarity = itemRareType,
             effectStrength = effectStrength,
             isInfinite = isInfinite,
-            effectType = effectType
+            effectType = effectType,
+            maxStack = maxStack,
         };
 
         itemConfig.AddItem(newItem);
