@@ -107,6 +107,7 @@ namespace TandC.RpgAdventure.Core
 
         private void RegisterUi()
         {
+            Debug.LogError(_uiService);
             // UI Registration Logic Here
         }
 

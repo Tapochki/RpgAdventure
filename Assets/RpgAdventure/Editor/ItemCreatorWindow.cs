@@ -6,7 +6,7 @@ using TandC.RpgAdventure.Settings;
 
 public class ItemCreatorWindow : EditorWindow
 {
-    private string itemName = "New Item";
+    private string itemName = "New Items";
     private Sprite itemIcon;
     private ItemType itemType;
     private ItemRariryType itemRareType;
@@ -22,10 +22,10 @@ public class ItemCreatorWindow : EditorWindow
 
     private ItemConfig itemConfig;
 
-    [MenuItem("TandC Tools/Item Creator")]
+    [MenuItem("TandC Tools/Items Creator")]
     public static void ShowWindow()
     {
-        GetWindow<ItemCreatorWindow>("Item Creator");
+        GetWindow<ItemCreatorWindow>("Items Creator");
     }
 
     private void OnEnable()
@@ -39,13 +39,13 @@ public class ItemCreatorWindow : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("Item Creator", EditorStyles.boldLabel);
+        GUILayout.Label("Items Creator", EditorStyles.boldLabel);
 
-        itemConfig = (ItemConfig)EditorGUILayout.ObjectField("Item Config", itemConfig, typeof(ItemConfig), false);
-        itemName = EditorGUILayout.TextField("Item Name", itemName);
-        itemIcon = (Sprite)EditorGUILayout.ObjectField("Item Icon", itemIcon, typeof(Sprite), false);
-        itemType = (ItemType)EditorGUILayout.EnumPopup("Item Type", itemType);
-        itemRareType = (ItemRariryType)EditorGUILayout.EnumPopup("Item Rarity", itemRareType);
+        itemConfig = (ItemConfig)EditorGUILayout.ObjectField("Items Config", itemConfig, typeof(ItemConfig), false);
+        itemName = EditorGUILayout.TextField("Items Name", itemName);
+        itemIcon = (Sprite)EditorGUILayout.ObjectField("Items Icon", itemIcon, typeof(Sprite), false);
+        itemType = (ItemType)EditorGUILayout.EnumPopup("Items Type", itemType);
+        itemRareType = (ItemRariryType)EditorGUILayout.EnumPopup("Items Rarity", itemRareType);
         baseValue = EditorGUILayout.IntField("Base Value", baseValue);
         weight = EditorGUILayout.FloatField("Weight", weight);
         maxStack = EditorGUILayout.IntField("Max Stack", maxStack);
@@ -82,7 +82,7 @@ public class ItemCreatorWindow : EditorWindow
 
         GUILayout.Space(20);
 
-        if (GUILayout.Button("Add Item"))
+        if (GUILayout.Button("Add Items"))
         {
             if (itemConfig != null)
             {
@@ -114,12 +114,12 @@ public class ItemCreatorWindow : EditorWindow
 
         itemConfig.AddItem(newItem);
 
-        EditorUtility.DisplayDialog("Success", "Item added successfully!", "OK");
+        EditorUtility.DisplayDialog("Success", "Items added successfully!", "OK");
     }
 
     private void ClearWindow() 
     {
-        itemName = "New Item";
+        itemName = "New Items";
         itemIcon = null;
         itemType = ItemType.None;
         baseValue = 0;

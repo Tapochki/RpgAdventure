@@ -1,9 +1,9 @@
 using TandC.RpgAdventure.Config.Player;
-using TandC.RpgAdventure.Core.Player.Effect;
+using TandC.RpgAdventure.Core.Items.Effect;
 using TandC.RpgAdventure.Settings;
 using VContainer;
 
-namespace TandC.RpgAdventure.Core.Item
+namespace TandC.RpgAdventure.Core.Items
 {
     public class ItemFactory
     {
@@ -13,7 +13,7 @@ namespace TandC.RpgAdventure.Core.Item
         public Item CreateItem(int itemID)
         {
             var itemData = _itemConfig.GetItemByID(itemID);
-
+            
             switch (itemData.type)
             {
                 //add here weaponData attack damage and 

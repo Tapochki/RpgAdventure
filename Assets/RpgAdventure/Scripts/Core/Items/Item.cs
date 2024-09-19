@@ -1,9 +1,9 @@
+using TandC.RpgAdventure.Core.Items.Effect;
 using TandC.RpgAdventure.Core.Player;
-using TandC.RpgAdventure.Core.Player.Effect;
 using TandC.RpgAdventure.Settings;
 using UnityEngine;
 
-namespace TandC.RpgAdventure.Core.Item
+namespace TandC.RpgAdventure.Core.Items
 {
     public abstract class Item
     {

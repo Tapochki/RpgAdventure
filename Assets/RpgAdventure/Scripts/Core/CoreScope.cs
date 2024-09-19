@@ -1,11 +1,10 @@
-﻿using System.ComponentModel;
-using TandC.RpgAdventure.Config;
+﻿using TandC.RpgAdventure.Config;
 using TandC.RpgAdventure.Config.Player;
-using TandC.RpgAdventure.Core.Item;
+using TandC.RpgAdventure.Core.Items;
+using TandC.RpgAdventure.Core.Items.Effect;
 using TandC.RpgAdventure.Core.Map;
 using TandC.RpgAdventure.Core.Map.MapObject;
 using TandC.RpgAdventure.Core.Player;
-using TandC.RpgAdventure.Core.Player.Effect;
 using TandC.RpgAdventure.Services;
 using UnityEngine;
 using VContainer;

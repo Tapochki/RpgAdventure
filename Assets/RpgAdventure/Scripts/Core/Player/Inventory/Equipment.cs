@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using TandC.RpgAdventure.Core.Item;
+using TandC.RpgAdventure.Core.Items;
 using TandC.RpgAdventure.Settings;
 using UniRx;
 
-namespace TandC.RpgAdventure.Core.Player 
+namespace TandC.RpgAdventure.Core.Player.Inventory
 {
     public class Equipment
     {

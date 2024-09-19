@@ -1,5 +1,5 @@
 using TandC.RpgAdventure.Config.Player;
-using TandC.RpgAdventure.Core.Item;
+using TandC.RpgAdventure.Core.Items;
 using TandC.RpgAdventure.Settings;
 using UnityEngine.Tilemaps;
 using VContainer;

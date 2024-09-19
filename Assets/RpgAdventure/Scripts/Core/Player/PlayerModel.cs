@@ -1,4 +1,5 @@
-using TandC.RpgAdventure.Core.Item;
+using TandC.RpgAdventure.Core.Items;
+using TandC.RpgAdventure.Core.Player.Inventory;
 using UniRx;
 using UnityEngine;
 

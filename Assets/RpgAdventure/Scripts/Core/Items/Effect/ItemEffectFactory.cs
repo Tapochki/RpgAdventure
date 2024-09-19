@@ -1,7 +1,7 @@
 using TandC.RpgAdventure.Config.Player;
 using TandC.RpgAdventure.Settings;
 
-namespace TandC.RpgAdventure.Core.Player.Effect
+namespace TandC.RpgAdventure.Core.Items.Effect
 {
     public class ItemEffectFactory
     {

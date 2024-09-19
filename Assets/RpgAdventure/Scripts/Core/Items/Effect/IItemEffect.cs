@@ -1,4 +1,6 @@
-namespace TandC.RpgAdventure.Core.Player.Effect 
+using TandC.RpgAdventure.Core.Player;
+
+namespace TandC.RpgAdventure.Core.Items.Effect 
 {
     public interface IItemEffect
     {
