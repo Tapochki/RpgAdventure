@@ -25,6 +25,7 @@ namespace TandC.RpgAdventure.MainMenu
             _uiService.Init();
             _uiService.RegisterPage(new MainMenuPage());
             _uiService.RegisterPage(new SettingsPage());
+            _uiService.RegisterPage(new RacePage());
             //_sceneManager.LoadScene(AppConstants.Scenes.MainMenu).Forget();
         }
     }
