@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using TandC.RpgAdventure.Config;
 using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Settings;
 using UniRx;
@@ -19,13 +18,6 @@ namespace TandC.RpgAdventure.Core.Map
         private Tilemap _tilemap;
 
         [Inject] private DataService _dataService;
-
-        private StructureConfig _structureConfig;
-
-        public TilemapViewModel(StructureConfig structureConfig) 
-        {
-            _structureConfig = structureConfig;
-        }
 
         public void SetTilemap(Tilemap tilemap) 
         {

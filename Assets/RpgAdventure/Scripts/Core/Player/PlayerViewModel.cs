@@ -9,7 +9,7 @@ using VContainer;
 
 namespace TandC.RpgAdventure.Core.Player
 {
-    public class PlayerController
+    public class PlayerViewModel
     {
         public Action OnPlayerMoveStart;
         public Action OnPlayerMoveEnd;
@@ -25,9 +25,16 @@ namespace TandC.RpgAdventure.Core.Player
         private Animator _animator;
         private SpriteRenderer _model;
 
+        private PlayerModel _playerModel;
+
         public void SetPlayerPrefab(GameObject playerPrefab)
         {
             _playerPrefab = playerPrefab;
+        }
+
+        public void SetPlayerModel(PlayerModel playerModel) 
+        {
+            _playerModel = playerModel;
         }
 
         public void Initialize(Tilemap tilemap)

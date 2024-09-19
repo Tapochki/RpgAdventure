@@ -1,0 +1,350 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 562f5ab4e461fb8488201ee4559b7752, type: 3}
+  m_Name: ItemConfig
+  m_EditorClassIdentifier: 
+  weapons:
+  - itemID: 1
+    itemName: WarriorDefaultSword
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 1
+    slot: 6
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 0
+      Perception: 0
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 5
+    maxStack: 0
+    effectType: 0
+  - itemID: 2
+    itemName: HunterDefaultBow
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 1
+    slot: 7
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 0
+      Perception: 0
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 5
+    maxStack: 0
+    effectType: 0
+  armors:
+  - itemID: 3
+    itemName: WarriorDefaultHelmet
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 2
+    slot: 1
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  - itemID: 4
+    itemName: WarriorDefaultChestPlate
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 2
+    slot: 2
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  - itemID: 5
+    itemName: WarriorDefaultPants
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 2
+    slot: 3
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  - itemID: 6
+    itemName: WarriorDefaultBoot
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 2
+    slot: 4
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  - itemID: 7
+    itemName: HunterDefaultHood
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 2
+    slot: 1
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  - itemID: 8
+    itemName: HunterDefaultChestArmor
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 2
+    slot: 2
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  - itemID: 9
+    itemName: HunterDefaultPants
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 2
+    slot: 3
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  - itemID: 10
+    itemName: HunterDefaultBoots
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 2
+    slot: 4
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  accessories:
+  - itemID: 11
+    itemName: WarroirDefaultAmulet
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 3
+    slot: 8
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  - itemID: 12
+    itemName: OldHunterRind
+    itemIcon: {fileID: 0}
+    itemRarity: 2
+    baseValue: 100
+    type: 3
+    slot: 9
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 0
+    isInfinite: 0
+    weight: 2
+    maxStack: 0
+    effectType: 0
+  consumables:
+  - itemID: 13
+    itemName: HealthPotion
+    itemIcon: {fileID: 0}
+    itemRarity: 2
+    baseValue: 100
+    type: 4
+    slot: 9
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 30
+    isInfinite: 0
+    weight: 1
+    maxStack: 0
+    effectType: 1
+  - itemID: 14
+    itemName: StaminaPotion
+    itemIcon: {fileID: 0}
+    itemRarity: 2
+    baseValue: 100
+    type: 4
+    slot: 9
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 20
+    isInfinite: 0
+    weight: 1
+    maxStack: 0
+    effectType: 2
+  companions: []
+  miscellaneous:
+  - itemID: 15
+    itemName: Paper
+    itemIcon: {fileID: 0}
+    itemRarity: 1
+    baseValue: 100
+    type: 6
+    slot: 9
+    weaponDamage: 10
+    characterAttributes:
+      Strength: 0
+      Agility: 0
+      Intelligence: 0
+      Charisma: 0
+      Luck: 10
+      Perception: 2
+      Health: 0
+      Stamina: 0
+    effectStrength: 20
+    isInfinite: 0
+    weight: 1
+    maxStack: 0
+    effectType: 2

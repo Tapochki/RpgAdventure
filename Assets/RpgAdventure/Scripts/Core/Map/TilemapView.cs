@@ -18,7 +18,7 @@ namespace TandC.RpgAdventure.Core.Map
         [Inject] private FogOfWar _fogOfWar;
         [Inject] private MapObjectViewModel _mapObjectViewModel;
         [Inject] private MapObjectView _mapObjectView;
-        [Inject] private PlayerController _playerSpawner;
+        [Inject] private PlayerViewModel _playerViewModel;
 
         private TilemapViewModel _viewModel;
 
@@ -40,7 +40,7 @@ namespace TandC.RpgAdventure.Core.Map
             _step = AppConstants.TILE_STEP;
             InitializeTiles();
             _fogOfWar.InitializeFog();
-            _playerSpawner.SpawnPlayer(_viewModel.CurrentCentralTile);
+            _playerViewModel.SpawnPlayer(_viewModel.CurrentCentralTile);
             List<TileModel> surroundingTiles = _viewModel.GetSurroundingTilesFromCentral();
             UpdateTileVisibility(surroundingTiles);
             ShowHideCurrentPlaceHodlers(true);
@@ -91,8 +91,8 @@ namespace TandC.RpgAdventure.Core.Map
             if (clickedTile != null &&
                 (clickedTile.Type == TileType.Land || clickedTile.Type == TileType.Sand))
             {
-                _viewModel.SetCurrentCentralTile(clickedTile.Position);             
-                _playerSpawner.MovePlayerToTile(clickedTile);              
+                _viewModel.SetCurrentCentralTile(clickedTile.Position);
+                _playerViewModel.MovePlayerToTile(clickedTile);              
             }
         }
 
