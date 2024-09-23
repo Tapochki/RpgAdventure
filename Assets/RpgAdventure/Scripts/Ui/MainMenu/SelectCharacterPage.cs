@@ -4,10 +4,9 @@ using TandC.RpgAdventure.Services;
 using TandC.RpgAdventure.Ui;
 using UnityEngine;
 
-
 namespace TandC.RpgAdventure.UI.MainMenu
 {
-    public class RacePage : IUIPage
+    public class SelectCharacterPage : IUIPage
     {
         public bool IsActive { get; private set; }
 
