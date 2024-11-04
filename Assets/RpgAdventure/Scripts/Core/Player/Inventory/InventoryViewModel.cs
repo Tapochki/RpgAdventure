@@ -14,7 +14,6 @@ namespace TandC.RpgAdventure.Core.Player.Inventory
         public ReactiveCommand<MoveItemCommandParameter> MoveItemCommand { get; private set; }
         public ReactiveCommand<int> RemoveItemCommand { get; private set; }
 
-
         public InventoryViewModel(InventoryModel inventory, Equipment equipment)
         {
             _inventory = inventory;
@@ -45,7 +44,7 @@ namespace TandC.RpgAdventure.Core.Player.Inventory
 
         private void EquipItem(InventorySlotViewModel slotViewModel)
         {
-            if (slotViewModel.Item is EquippableItem equipItem)
+            if (slotViewModel.Item.Value is EquippableItem equipItem)
             {
                 _equipment.EquipItem(equipItem);
             }
@@ -84,33 +83,25 @@ namespace TandC.RpgAdventure.Core.Player.Inventory
 
     public class InventorySlotViewModel
     {
-        private Item _item;
-        private int _quantity;
-        private int _slotIndex;
-
-        public Item Item
-        {
-            get => _item;
-            //set => SetProperty(ref _item, value);
-        }
-
-        public int Quantity
-        {
-            get => _quantity;
-           // set => SetProperty(ref _quantity, value);
-        }
-
-        public int SlotIndex
-        {
-            get => _slotIndex;
-           // set => SetProperty(ref _slotIndex, value);
-        }
+        public ReactiveProperty<Item> Item { get; private set; }
+        public ReactiveProperty<int> Quantity { get; private set; }
+        public int SlotIndex { get; private set; }
 
         public InventorySlotViewModel(Item item, int quantity, int slotIndex)
         {
-           // Item = item;
-          //  Quantity = quantity;
-          //  SlotIndex = slotIndex;
+            Item = new ReactiveProperty<Item>(item);
+            Quantity = new ReactiveProperty<int>(quantity);
+            SlotIndex = slotIndex;
+        }
+
+        public void SetQuantity(int quantity)
+        {
+            Quantity.Value = quantity;
+        }
+
+        public void SetItem(Item newItem)
+        {
+            Item.Value = newItem;
         }
     }
 }

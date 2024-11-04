@@ -33,7 +33,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 5
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 2
     itemName: HunterDefaultBow
@@ -55,7 +55,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 5
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   armors:
   - itemID: 3
@@ -78,7 +78,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 4
     itemName: WarriorDefaultChestPlate
@@ -100,7 +100,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 5
     itemName: WarriorDefaultPants
@@ -122,7 +122,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 6
     itemName: WarriorDefaultBoot
@@ -144,7 +144,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 7
     itemName: HunterDefaultHood
@@ -166,7 +166,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 8
     itemName: HunterDefaultChestArmor
@@ -188,7 +188,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 9
     itemName: HunterDefaultPants
@@ -210,7 +210,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 10
     itemName: HunterDefaultBoots
@@ -232,7 +232,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   accessories:
   - itemID: 11
@@ -255,7 +255,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   - itemID: 12
     itemName: OldHunterRind
@@ -277,7 +277,7 @@ MonoBehaviour:
     effectStrength: 0
     isInfinite: 0
     weight: 2
-    maxStack: 0
+    maxStack: 1
     effectType: 0
   consumables:
   - itemID: 13
@@ -286,21 +286,21 @@ MonoBehaviour:
     itemRarity: 2
     baseValue: 100
     type: 4
-    slot: 9
-    weaponDamage: 10
+    slot: 0
+    weaponDamage: 0
     characterAttributes:
       Strength: 0
       Agility: 0
       Intelligence: 0
       Charisma: 0
-      Luck: 10
-      Perception: 2
+      Luck: 0
+      Perception: 0
       Health: 0
       Stamina: 0
     effectStrength: 30
     isInfinite: 0
     weight: 1
-    maxStack: 0
+    maxStack: 3
     effectType: 1
   - itemID: 14
     itemName: StaminaPotion
@@ -308,21 +308,21 @@ MonoBehaviour:
     itemRarity: 2
     baseValue: 100
     type: 4
-    slot: 9
-    weaponDamage: 10
+    slot: 0
+    weaponDamage: 0
     characterAttributes:
       Strength: 0
       Agility: 0
       Intelligence: 0
       Charisma: 0
-      Luck: 10
-      Perception: 2
+      Luck: 0
+      Perception: 0
       Health: 0
       Stamina: 0
     effectStrength: 20
     isInfinite: 0
     weight: 1
-    maxStack: 0
+    maxStack: 3
     effectType: 2
   companions: []
   miscellaneous:
@@ -333,18 +333,18 @@ MonoBehaviour:
     baseValue: 100
     type: 6
     slot: 9
-    weaponDamage: 10
+    weaponDamage: 0
     characterAttributes:
       Strength: 0
       Agility: 0
       Intelligence: 0
       Charisma: 0
-      Luck: 10
+      Luck: 0
       Perception: 2
       Health: 0
       Stamina: 0
-    effectStrength: 20
+    effectStrength: 0
     isInfinite: 0
     weight: 1
-    maxStack: 0
+    maxStack: 10
     effectType: 2
