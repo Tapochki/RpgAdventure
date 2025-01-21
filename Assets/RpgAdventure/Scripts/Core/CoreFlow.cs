@@ -7,6 +7,7 @@ using UnityEngine.Tilemaps;
 using TandC.RpgAdventure.Core.Player;
 using TandC.RpgAdventure.Core.Map.MapObject;
 using System.Threading.Tasks;
+using TandC.RpgAdventure.Core.Player.Inventory;
 
 namespace TandC.RpgAdventure.Core
 {

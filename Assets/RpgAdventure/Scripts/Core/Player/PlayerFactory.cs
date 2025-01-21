@@ -1,6 +1,8 @@
 using TandC.RpgAdventure.Config.Player;
 using TandC.RpgAdventure.Core.Items;
+using TandC.RpgAdventure.Core.Player.Inventory;
 using TandC.RpgAdventure.Settings;
+using UnityEngine;
 using UnityEngine.Tilemaps;
 using VContainer;
 
@@ -22,19 +24,32 @@ namespace TandC.RpgAdventure.Core.Player
 
             var playerModel = new PlayerModel(finalAttributes);
 
-            foreach (var itemId in classData.startPlayerItemsId)
-            {
-                var item = _itemFactory.CreateItem(itemId);
-                if (item is EquippableItem equippableItem)
-                {
-                    playerModel.Equipment.EquipItem(equippableItem);
-                }
-            }
+            CreateInv(classData.startPlayerItemsId);
 
             _playerViewModel.SetPlayerPrefab(raceData.characterObject);
             _playerViewModel.Initialize(tileMap);
 
             return playerModel;
+        }
+
+        private void CreateInv(int[] startPlayerItemsId)
+        {
+            InventoryModel inventoryModel = new InventoryModel(100, 100);
+            Equipment equipment = new Equipment();
+            foreach (var itemId in startPlayerItemsId)
+            {
+                var item = _itemFactory.CreateItem(itemId);
+                if (item is EquippableItem equippableItem)
+                {
+                    equipment.EquipItem(equippableItem);
+                }
+                else
+                {
+                    inventoryModel.AddItem(item, 1);
+                }
+                InventoryViewModel inventorySlotViewModel = new InventoryViewModel(inventoryModel, equipment);
+            }
+            inventoryModel.LogInv();
         }
     }
 }

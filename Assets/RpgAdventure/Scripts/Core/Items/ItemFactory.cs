@@ -18,26 +18,21 @@ namespace TandC.RpgAdventure.Core.Items
             {
                 //add here weaponData attack damage and 
                 case ItemType.Weapon:
-                    return new WeaponItem(itemData.itemID, itemData.itemName, itemData.itemIcon, itemData.itemRarity, 
-                        itemData.baseValue, itemData.type, itemData.slot, itemData.characterAttributes, itemData.weight, itemData.weaponDamage);
+                    return new WeaponItem(itemData);
 
                 case ItemType.Armor:
-                    return new ArmorItem(itemData.itemID, itemData.itemName, itemData.itemIcon, itemData.itemRarity,
-                        itemData.baseValue, itemData.type, itemData.slot, itemData.characterAttributes, itemData.weight);
+                    return new ArmorItem(itemData);
 
                 case ItemType.Accessory:
-                    return new AccessoryItem(itemData.itemID, itemData.itemName, itemData.itemIcon, itemData.itemRarity,
-                        itemData.baseValue, itemData.type, itemData.slot, itemData.characterAttributes, itemData.weight);
+                    return new AccessoryItem(itemData);
 
                 //add here class Companion with companion effect 
                 case ItemType.Consumable:
                     var effect = _effectFactory.CreateEffect(itemData);
-                    return new ConsumableItem(itemData.itemID, itemData.itemName, itemData.itemIcon, itemData.itemRarity, 
-                        itemData.baseValue, itemData.type, itemData.weight, itemData.maxStack, effect);
+                    return new ConsumableItem(itemData, effect);
 
                 case ItemType.Miscellaneous:
-                    return new MiscellaneousItem(itemData.itemID, itemData.itemName, itemData.itemIcon, itemData.itemRarity,
-                        itemData.baseValue, itemData.type, itemData.weight, itemData.maxStack);
+                    return new MiscellaneousItem(itemData);
 
                 default:
                     throw new System.Exception("Unknown item type");

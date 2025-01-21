@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TandC.RpgAdventure.Core.Items;
+using UnityEngine;
 
 namespace TandC.RpgAdventure.Core.Player.Inventory 
 {
@@ -76,6 +77,15 @@ namespace TandC.RpgAdventure.Core.Player.Inventory
 
             var slot = _slots[slotIndex];
             return slot.RemoveItem(quantity) > 0;
+        }
+
+        public void LogInv() 
+        {
+            Debug.LogError("Slots count: " + _slots.Count);
+            foreach(var item in _slots) 
+            {
+                Debug.LogError("Name : " + item.Item.ItemName + " Count: " + item.Quantity);
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using TandC.RpgAdventure.Config.Player;
 using TandC.RpgAdventure.Core.Items.Effect;
 using TandC.RpgAdventure.Core.Player;
 using TandC.RpgAdventure.Settings;
@@ -16,16 +17,16 @@ namespace TandC.RpgAdventure.Core.Items
         public float Weight { get; private set; }
         public int MaxStack { get; private set; }
 
-        protected Item(int itemID, string itemName, Sprite itemIcon, ItemRariryType itemRarity, int baseValue, ItemType type, float weight, int maxStack)
+        protected Item(ItemData itemData)
         {
-            ItemID = itemID;
-            ItemName = itemName;
-            ItemIcon = itemIcon;
-            ItemRarity = itemRarity;
-            BaseValue = baseValue;
-            Type = type;
-            Weight = weight;
-            MaxStack = maxStack;
+            ItemID = itemData.itemID;
+            ItemName = itemData.itemName;
+            ItemIcon = itemData.itemIcon;
+            ItemRarity = itemData.itemRarity;
+            BaseValue = itemData.baseValue;
+            Type = itemData.type;
+            Weight = itemData.weight;
+            MaxStack = itemData.maxStack;
         }
     }
 
@@ -34,11 +35,11 @@ namespace TandC.RpgAdventure.Core.Items
         public EquipmentSlot Slot { get; private set; }
         public CharacterAttributes Attributes { get; private set; }
 
-        protected EquippableItem(int itemID, string itemName, Sprite itemIcon, ItemRariryType itemRarity, int baseValue, ItemType type, EquipmentSlot slot, CharacterAttributes attributes, float weight)
-            : base(itemID, itemName, itemIcon, itemRarity, baseValue, type, weight, 1)
+        protected EquippableItem(ItemData itemData)
+            : base(itemData)
         {
-            Slot = slot;
-            Attributes = attributes;
+            Slot = itemData.slot;
+            Attributes = itemData.characterAttributes;
         }
     }
 
@@ -46,25 +47,25 @@ namespace TandC.RpgAdventure.Core.Items
     {
         public int WeaponDamage { get; private set; }
 
-        public WeaponItem(int itemID, string itemName, Sprite itemIcon, ItemRariryType itemRarity, int baseValue, ItemType type, EquipmentSlot slot, CharacterAttributes attributes, float weight, int weaponDamage) :
-            base(itemID, itemName, itemIcon, itemRarity, baseValue, type, slot, attributes, weight)
+        public WeaponItem(ItemData itemData) :
+            base(itemData)
         {
-            WeaponDamage = weaponDamage;
+            WeaponDamage = itemData.weaponDamage;
         }
     }
 
     public class ArmorItem : EquippableItem
     {
-        public ArmorItem(int itemID, string itemName, Sprite itemIcon, ItemRariryType itemRarity, int baseValue, ItemType type, EquipmentSlot slot, CharacterAttributes attributes, float weight) :
-            base(itemID, itemName, itemIcon, itemRarity, baseValue, type, slot, attributes, weight)
+        public ArmorItem(ItemData itemData) :
+            base(itemData)
         {
         }
     }
 
     public class AccessoryItem : EquippableItem
     {
-        public AccessoryItem(int itemID, string itemName, Sprite itemIcon, ItemRariryType itemRarity, int baseValue, ItemType type, EquipmentSlot slot, CharacterAttributes attributes, float weight) :
-            base(itemID, itemName, itemIcon, itemRarity, baseValue, type, slot, attributes, weight)
+        public AccessoryItem(ItemData itemData) :
+            base(itemData)
         {
         }
     }
@@ -73,8 +74,8 @@ namespace TandC.RpgAdventure.Core.Items
     {
         private IItemEffect _effect;
 
-        public ConsumableItem(int itemID, string itemName, Sprite itemIcon, ItemRariryType itemRarity, int baseValue, ItemType type, float weight, int maxStack, IItemEffect itemEffect) :
-            base(itemID, itemName, itemIcon, itemRarity, baseValue, type, weight, maxStack)
+        public ConsumableItem(ItemData itemData, IItemEffect itemEffect) :
+            base(itemData)
         {
             _effect = itemEffect;
         }
@@ -87,8 +88,8 @@ namespace TandC.RpgAdventure.Core.Items
 
     public class MiscellaneousItem : Item
     {
-        public MiscellaneousItem(int itemID, string itemName, Sprite itemIcon, ItemRariryType itemRarity, int baseValue, ItemType type, float weight, int maxStack) :
-            base(itemID, itemName, itemIcon, itemRarity, baseValue, type, weight, maxStack)
+        public MiscellaneousItem(ItemData itemData) :
+            base(itemData)
         {
 
         }

@@ -5,6 +5,7 @@ using TandC.RpgAdventure.Core.Items.Effect;
 using TandC.RpgAdventure.Core.Map;
 using TandC.RpgAdventure.Core.Map.MapObject;
 using TandC.RpgAdventure.Core.Player;
+using TandC.RpgAdventure.Core.Player.Inventory;
 using TandC.RpgAdventure.Services;
 using UnityEngine;
 using VContainer;
